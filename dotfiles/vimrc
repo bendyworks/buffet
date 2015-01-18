@@ -1,0 +1,10 @@
+" must be set first; prevents maintaining compatibility with Vi
+set nocompatible
+
+" source all files in vim/vimrcs/
+let s:vimrcs = split(globpath($BUFFET_DIRECTORY . '/vim/vimrcs', '*.vim'), '\n')
+for f in s:vimrcs | execute 'source ' . f | endfor
+
+" source a local override if it exists
+let s:localrc = '~/.vimrc.local'
+if filereadable(s:localrc) | execute 'source ' . s:localrc | endif
