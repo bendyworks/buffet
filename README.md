@@ -4,10 +4,16 @@ A sampling of the tastiest dotfiles, configurations, and plugins from
 across the internet, primarily congregated for use across Bendyworks's
 plethora of machines.
 
+These configurations assume up-to-date versions of the following tools:
+- Bash
+- Vim
+- Git
+- Tmux
+
 ## Usage
 
 Simply clone onto your machine, `cd` into the directory, and run
-`bin/deploy`.
+`./deploy`.
 
 - All files `dotfiles/` are symlinked into your home directory. Any
   dotfiles that would be overwritten are moved to `[filename].unused`,

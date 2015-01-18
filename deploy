@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+# set the buffet directory to the directory of the deploy script
+export BUFFET_DIRECTORY="$(dirname "$(readlink -f "$0")")"
+
+# link every dotfile in dotfiles/ into the user's home directory
+for dotfile in $BUFFET_DIRECTORY/dotfiles/*; do
+  original="$HOME/.${dotfile##*/}"
+  [! -h "$original" ] && mv "$original" "$original\.override"
+  ln -fs "$dotfile" "$original"
+done
