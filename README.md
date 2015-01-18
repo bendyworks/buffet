@@ -7,7 +7,7 @@ plethora of machines.
 ## Usage
 
 Simply clone onto your machine, `cd` into the directory, and run
-`./deploy`.
+`bin/deploy`.
 
 - All files `dotfiles/` are symlinked into your home directory. Any
   dotfiles that would be overwritten are moved to `[filename].unused`,

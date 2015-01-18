@@ -1,0 +1,27 @@
+[submodule "vim/plugins/vim-pathogen"]
+	path = vim/plugins/vim-pathogen
+	url = https://github.com/tpope/vim-pathogen
+[submodule "vim/plugins/vim-fugitive"]
+	path = vim/plugins/vim-fugitive
+	url = https://github.com/tpope/vim-fugitive
+[submodule "vim/plugins/vim-rails"]
+	path = vim/plugins/vim-rails
+	url = https://github.com/tpope/vim-rails
+[submodule "vim/plugins/vim-surround"]
+	path = vim/plugins/vim-surround
+	url = https://github.com/tpope/vim-surround
+[submodule "vim/plugins/vim-commentary"]
+	path = vim/plugins/vim-commentary
+	url = https://github.com/tpope/vim-commentary
+[submodule "vim/plugins/nerdtree"]
+	path = vim/plugins/nerdtree
+	url = https://github.com/scrooloose/nerdtree
+[submodule "vim/plugins/syntastic"]
+	path = vim/plugins/syntastic
+	url = https://github.com/scrooloose/syntastic
+[submodule "vim/plugins/vim-airline"]
+	path = vim/plugins/vim-airline
+	url = https://github.com/bling/vim-airline
+[submodule "vim/plugins/ctrlp.vim"]
+	path = vim/plugins/ctrlp.vim
+	url = https://github.com/kien/ctrlp.vim
