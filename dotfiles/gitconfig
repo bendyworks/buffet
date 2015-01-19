@@ -29,7 +29,7 @@
   cp     = checkout --patch
 
   # merging
-  me = merge
+  me     = merge
   noff   = merge --no-edit --no-ff
 
   # everything else
