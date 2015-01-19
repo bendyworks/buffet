@@ -7,8 +7,10 @@ set directory=~/.vim/temp//   " set swap directory
 " make Vim behave more like other editors
 set backspace=indent,eol,start  " enable backspacing through whitespace
 set virtualedit=all             " cursor can move past the end of the line
-set clipboard=unnamed           " use the system clipboard as the default register
 set mouse=a                     " enable mouse reporting/highlighting/scrolling
+
+" use the system clipboard as the default register
+set clipboard=unnamedplus,unnamed,autoselect
 
 " change the default tabs to two spaces
 set expandtab     " use soft-tabs
