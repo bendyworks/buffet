@@ -15,6 +15,13 @@
   ui = true
   pager = true
 
+[url "git://github.com/"]
+  insteadOf = "gh:"
+[url "git@github.com:"]
+  insteadOf = "ghp:"
+[url "git@gitlab.com:"]
+  insteadOf = "gl:"
+
 [push]
   default = tracking
 
