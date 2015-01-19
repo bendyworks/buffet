@@ -12,7 +12,7 @@ These configurations assume up-to-date versions of the following tools:
 
 ## Usage
 
-Simply clone onto your machine, `cd` into the directory, and run
+Clone this project into `~/.buffet`, `cd` into the directory, and run
 `./deploy`.
 
 - All files `dotfiles/` are symlinked into your home directory. Any

@@ -1,0 +1,38 @@
+[core]
+  repositoryformatversion = 0
+  filemode = true
+  bare = false
+  logallrefupdates = true
+  ignorecase = false
+  precomposeunicode = false
+  excludesfile = ~/.gitignore
+
+[color]
+  diff = auto
+  status = auto
+  branch = auto
+  interactive = auto
+  ui = true
+  pager = true
+
+[push]
+  default = tracking
+
+[alias]
+  # commit-specific aliases
+  ci     = commit
+  amend  = commit --amend --reuse-message=HEAD
+  reauth = commit --amend --reset-author --reuse-message=HEAD
+
+  # checkout-specific aliases
+  co     = checkout
+  cp     = checkout --patch
+
+  # everything else
+  ap     = add --patch
+  b      = branch
+  l      = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
+  noff   = merge --no-edit --no-ff
+  put    = push origin HEAD --set-upstream
+  s      = status --short
+  sha    = "!if [ -x \"$(command -v xclip)\" ]; then git rev-parse HEAD | tr -d [:space:] | xclip; elif [ -x \"$(command -v pbcopy)\" ]; then git rev-parse HEAD | tr -d [:space:] | pbcopy; fi"
