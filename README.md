@@ -41,4 +41,4 @@ Otherwise, pull requests are always welcome!
 
 ## License
 
-lol wat
+See the `LICENSE` file.
