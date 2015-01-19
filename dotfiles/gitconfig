@@ -18,6 +18,9 @@
 [push]
   default = tracking
 
+[diff "zip"]
+  textconv = unzip -c -a
+
 [alias]
   # commit-specific aliases
   ci     = commit
