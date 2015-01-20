@@ -1,10 +1,8 @@
 #!/usr/bin/env bash
 
-# set the buffet directory to the directory of the deploy script
-export BUFFET_DIRECTORY="$HOME/.buffet"
-bashrcs_dir="$BUFFET_DIRECTORY/bashrcs"
 
-# only source existing files (to prevent error messages)
+# HELPER FUNCTIONS ============================================================
+
 _source_if_exists() {
   if [ -f $1 ]; then
     . $1
@@ -12,8 +10,53 @@ _source_if_exists() {
   fi
 }
 
-for file in $(ls $bashrcs_dir); do
-  . "$bashrcs_dir/$file"
-done
 
+
+
+# ALIASES =====================================================================
+
+# shortcuts for the most commonly used tools
+alias be="bundle exec"
+alias v="vim"
+alias g="git"
+
+# attach to the tmux session or create a new named after the user
+alias t='tmux attach-session -t "$(whoami)" || tmux new-session -s "$(whoami)"'
+
+
+
+# VARIABLES ===================================================================
+
+# normalize the "PATH" stack
+export PATH='/usr/local/bin:/usr/local/sbin:/usr/bin:/usr/sbin:/bin:/sbin'
+
+# "PATH" appends for personal scripts
+export PATH="$PATH:$HOME/.buffet/bin"
+
+# make "ls" results more easily read
+export LS_OPTIONS='--color=auto'
+export CLICOLOR='1'
+
+# set the default editor to Vim
+export EDITOR=vim
+export VISUAL=vim
+
+
+
+# AUTO-COMPLETES ==============================================================
+
+# source any homebrew-supplied autocompletion files
+comps_dir='/usr/local/etc/bash_completion.d'
+
+if [ -d $comps_dir ]; then
+  for file in $(command ls $comps_dir); do
+    . "$comps_dir/$file"
+  done
+fi
+
+
+
+# OTHER SOURCED FILES =========================================================
+
+_source_if_exists "$HOME/.prompt"
 _source_if_exists "$HOME/.bashrc.local"
