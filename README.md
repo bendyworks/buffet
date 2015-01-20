@@ -30,6 +30,14 @@ Clone this project into `~/.buffet`, `cd` into the directory, and run
   files within `vim/vimrcs/` are sourced by the main `dotfiles/vimrc`, to
   allow for cleaner organization.
 
+## Local Overrides
+
+After sourcing all Buffet `.bash` files, Bash will check for the existance of
+a `~/.bashrc.local` and source it if it exists. Similarly, when Vim sources its
+`.vim` files, it will check for the existance of a `~/.vimrc.local` and source
+it if it exists. In this way, any user is able to add their own (preferably
+non-destructive) configurations.
+
 ## Contributing
 
 Because these files are intended to be shared whole-cloth across machines,
