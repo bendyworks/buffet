@@ -47,6 +47,13 @@ explain their purpose.
 
 Otherwise, pull requests are always welcome!
 
+## Thanks
+
+So many lines are cribbed from [Josh][3]'s dotfiles that I lost count. He is
+the workflow avatar.
+
+  [3]: https://github.com/losingkeys
+
 ## License
 
 See the `LICENSE` file.
