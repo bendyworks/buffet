@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+
+# set the buffet directory to the directory of the deploy script
+export BUFFET_DIRECTORY="$HOME/.buffet"
+bashrcs_dir="$BUFFET_DIRECTORY/bashrcs"
+
+# only source existing files (to prevent error messages)
+source_if_exists() {
+  if [ -f $1 ]; then
+    . $1
+    eval $2
+  fi
+}
+
+for file in $(ls $bashrcs_dir); do
+  . "$bashrcs_dir/$file"
+done
