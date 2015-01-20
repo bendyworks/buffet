@@ -1,9 +1,128 @@
 " must be set first; prevents maintaining compatibility with Vi
 set nocompatible
 
-" source all files in vim/vimrcs/
-let s:vimrcs = split(globpath($BUFFET_DIRECTORY . '/vim/vimrcs', '*.vim'), '\n')
-for f in s:vimrcs | execute 'source ' . f | endfor
+
+
+" INPUT =======================================================================
+
+" make Vim more compatible with other filesystems
+au BufWritePre set nobomb     " don't set byte-order-mark on files
+set encoding=utf-8            " all opened files should be UTF-8
+set backupdir=~/.vim/backup// " set backup directory
+set directory=~/.vim/temp//   " set swap directory
+
+" make Vim behave more like other editors
+set backspace=indent,eol,start  " enable backspacing through whitespace
+set virtualedit=all             " cursor can move past the end of the line
+set mouse=a                     " enable mouse reporting/highlighting/scrolling
+
+" use the system clipboard as the default register
+set clipboard=unnamedplus,unnamed,autoselect
+
+" change the default tabs to two spaces
+set expandtab     " use soft-tabs
+set softtabstop=2 " default twp-space soft tabs
+set shiftwidth=2  " auto-indent with 2 spaces
+
+
+
+" NAVIGATION ==================================================================
+
+" a leader key convenient in any keyboard layout
+let mapleader=' '
+
+" shortcuts for working with the quickview window
+map <leader>cn :cnext<CR>     " next item in quickview
+map <leader>cp :cprevious<CR> " previous item in quickview
+map <leader>co :copen<CR>     " open quickview
+
+" navigate split windows via ctrl-h/j/k/l
+noremap <C-J> <C-W>j
+noremap <C-K> <C-W>k
+noremap <C-H> <C-W>h
+noremap <C-L> <C-W>l
+
+" generate ctags from within Vim
+command Ctags !ctags -R
+
+
+
+" VISUALS =====================================================================
+
+syntax on        " enable syntax highlighting
+set number       " show line number on left side
+set ruler        " show column/line # on bottom-right
+set nowrap       " don't wrap lines
+set laststatus=2 " show statusline at the bottom
+set showcmd      " show partial command input on bottom-right
+
+" show invisible charactes
+set list
+set listchars=tab:⸘⸘,trail:⸘,extends:»,precedes:«
+
+" modify cursor depending on mode
+let &t_SI = "\<Esc>]50;CursorShape=1\x7"
+let &t_EI = "\<Esc>]50;CursorShape=0\x7"
+
+" shortcuts for common visual changes
+map <leader>w :set wrap!<CR>               " toggle line wrapping
+map <leader>r :set relativenumber!<CR>     " toggle relative/normal line numbers
+map <leader>b :call ToggleBackground()<CR> " toggle between light/dark backgrounds
+
+" function to toggle between light/dark backgrounds
+function! ToggleBackground()
+  if &background == "light"
+    set background=dark
+  else
+    set background=light
+  endif
+endfunction
+
+
+
+" FILETYPES ===================================================================
+
+au BufNewFile,BufRead *.go set filetype=go
+au BufNewFile,BufRead *.json set filetype=javascript
+au BufNewFile,BufRead *.md,*.markdown set filetype=markdown
+au BufNewFile,BufRead *.gemspec,[gG]uardfile,[gG]emfile,[cC]apfile,[rR]akefile,*.ru set filetype=ruby
+au BufNewFile,BufRead *.slim set filetype=slim
+au BufNewFile,BufRead *.psql set filetype=sql
+
+
+
+" SEARCH ======================================================================
+
+set hlsearch   " highlight search results
+set incsearch  " enable incremental searching
+set ignorecase " searches are case insensitive...
+set smartcase  " unless they contain a capital letter
+
+" center the screen on search results
+nnoremap n  nzz
+nnoremap N  Nzz
+nnoremap *  *zz
+nnoremap #  #zz
+nnoremap g* g*zz
+nnoremap g# g#zz
+
+
+
+" FILE BROWSER ================================================================
+
+" NERDTree-specific settings
+map <leader>nt :NERDTreeToggle<CR> " open/close NERDtree
+map <leader>nf :NERDTreeFind<CR>   " open at the current file
+
+let g:NERDTreeWinSize=25   " constrain the default width
+let g:NERDTreeShowHidden=1 " show hidden files
+
+" don't display compiled or otherwise useless files
+let g:NERDTreeIgnore = ['\.pyc$', '\.pyo$', '\.rbc$', '\.rbo$', '\.class$', '\.hi$', '\.o$', '\~$']
+
+
+
+" LOCAL OVERRIDE ==============================================================
 
 " source a local override if it exists
 let s:localrc = '~/.vimrc.local'
