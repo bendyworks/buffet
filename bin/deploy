@@ -1,0 +1,27 @@
+#!/usr/bin/env bash
+
+# get the absolute path to the Buffet directory
+relpath="$(dirname "$0")"
+cd "$relpath/.."
+export BUFFET_DIRECTORY="$(pwd)"
+
+# link every dotfile in dotfiles/ into the user's home directory
+# if a dotfile exists with that name, add the ".unused" extension
+for dotfile in $BUFFET_DIRECTORY/dotfiles/*; do
+  original="$HOME/.${dotfile##*/}"
+  [ ! -h "$original" ] && mv "$original" "$original.unused" 2> /dev/null
+  ln -fs "$dotfile" "$original"
+done
+
+# link every Vim plugin in vim/plugins/ into ~/.vim/bundle
+# if a plugin already exists with that name, move it to ~/.vim/unused
+
+# mkdir ~/.vim/bundle 2> /dev/null
+# mkdir ~/.vim/unused 2> /dev/null
+# 
+# for plugin in $(command ls $BUFFET_DIRECTORY/vim/plugins); do
+#   original="$HOME/.vim/bundle/${plugin##*/}"
+#   echo $original
+#   [ ! -h "$original" ] && mv "$original" "~/.vim/unused"
+#   ln -fs "$plugin" "$original"
+# done
