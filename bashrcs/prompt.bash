@@ -19,18 +19,22 @@ light_magenta=95
 light_cyan=96
 white=97
 
+# set a color to a portion of text
 color() {
   echo "\e[$1m$2\e[0m"
 }
 
+# display the current directory
 directory() {
   echo $(color $green "\w ")
 }
 
+# display the current git branch
 git_branch() {
   echo $(git rev-parse --abbrev-ref HEAD 2> /dev/null)
 }
 
+# set the "dirty" git branch status marker
 git_dirty() {
   git diff --quiet
   if [ ! $? -eq 0 ]; then
@@ -38,6 +42,7 @@ git_dirty() {
   fi
 }
 
+# combine the git branch and "dirty" flag into a succint git status
 git_status() {
   local current_branch=$(git_branch)
   if [[ -n $current_branch ]]; then
@@ -45,6 +50,7 @@ git_status() {
   fi
 }
 
+# make the prompt arrow red if the last command errored
 exit_flag() {
   if [ $1 -eq 0 ]; then
     prompt_color=$yellow
@@ -55,6 +61,7 @@ exit_flag() {
   echo $(color $prompt_color '> ')
 }
 
+# display a count of the backgrounded/stopped jobs
 jobs_count() {
   local count=$(jobs | wc -l)
   if [ ! $count -eq 0 ]; then
@@ -62,12 +69,14 @@ jobs_count() {
   fi
 }
 
+# if logged into a remote host also using these dotfiles, display the hostname
 remote() {
   if [[ -n $SSH_CONNECTION ]]; then
     echo "$(color $magenta $HOST):"
   fi
 }
 
+# combine the above functions into a pretty and informative prompt
 prompt() {
   local last_exit_code=$?
   PS1="\n$(remote)$(directory)$(git_status)$(jobs_count)\n$(exit_flag $last_exit_code)"
