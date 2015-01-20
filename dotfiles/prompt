@@ -37,7 +37,7 @@ _color() {
 
 # divider between information
 _component() {
-  echo $(_color $light_gray " | $1: ")
+  echo " $(_color $light_gray "($1:") $2$(_color $light_gray ")")"
 }
 
 # find the current git branch
@@ -70,7 +70,7 @@ _git_status() {
   local current_branch=$(_git_branch)
 
   if [[ -n $current_branch ]]; then
-    echo "$(_component 'git')$(_color "$(_git_status_color)" "$current_branch")"
+    echo "$(_component 'git' "$(_color "$(_git_status_color)" "$current_branch")")"
   fi
 }
 
@@ -80,7 +80,7 @@ _jobs_count() {
   count=${count##*\ }
 
   if [ ! $count -eq 0 ]; then
-    echo "$(_component 'jobs')$(_color $yellow "$count")"
+    echo "$(_component 'jobs' "$(_color $yellow "$count")")"
   fi
 }
 
