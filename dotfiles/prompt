@@ -37,7 +37,7 @@ _color() {
 
 # divider between information
 _component() {
-  echo $(_color $default " | $1:")
+  echo $(_color $light_gray " | $1: ")
 }
 
 # find the current git branch
@@ -62,7 +62,7 @@ _git_status_color() {
 
 # display the current directory
 _directory() {
-  echo $(_color $green "\w ")
+  echo "$(_color $cyan "\w")"
 }
 
 # display the git branch
@@ -70,16 +70,17 @@ _git_status() {
   local current_branch=$(_git_branch)
 
   if [[ -n $current_branch ]]; then
-    echo "$(component 'git')$(_color "$(_git_status_color)" "$current_branch")"
+    echo "$(_component 'git')$(_color "$(_git_status_color)" "$current_branch")"
   fi
 }
 
 # display a count of the backgrounded/stopped jobs
 _jobs_count() {
   local count=$(jobs | wc -l)
+  count=${count##*\ }
 
   if [ ! $count -eq 0 ]; then
-    echo "$(component 'jobs')$(_color $yellow "jobs: $count")"
+    echo "$(_component 'jobs')$(_color $yellow "$count")"
   fi
 }
 
