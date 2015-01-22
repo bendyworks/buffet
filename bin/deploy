@@ -12,16 +12,3 @@ for dotfile in $BUFFET_DIRECTORY/dotfiles/*; do
   [ ! -h "$original" ] && mv "$original" "$original.unused" 2> /dev/null
   ln -fs "$dotfile" "$original"
 done
-
-# link every Vim plugin in vim/plugins/ into ~/.vim/bundle
-# if a plugin already exists with that name, move it to ~/.vim/unused
-
-# mkdir ~/.vim/bundle 2> /dev/null
-# mkdir ~/.vim/unused 2> /dev/null
-# 
-# for plugin in $(command ls $BUFFET_DIRECTORY/vim/plugins); do
-#   original="$HOME/.vim/bundle/${plugin##*/}"
-#   echo $original
-#   [ ! -h "$original" ] && mv "$original" "~/.vim/unused"
-#   ln -fs "$plugin" "$original"
-# done

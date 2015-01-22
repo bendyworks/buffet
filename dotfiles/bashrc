@@ -12,7 +12,6 @@ _source_if_exists() {
 
 
 
-
 # ALIASES =====================================================================
 
 # shortcuts for the most commonly used tools
@@ -22,6 +21,9 @@ alias g="git"
 
 # attach to the tmux session or create a new named after the user
 alias t='tmux attach-session -t "$(whoami)" || tmux new-session -s "$(whoami)"'
+
+# update all Vim plugins
+alias vundle='vim +PluginInstall! +qall'
 
 
 
