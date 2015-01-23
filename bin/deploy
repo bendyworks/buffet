@@ -1,8 +1,10 @@
 #!/usr/bin/env bash
 
+echo '-- serving Bendyworks buffet...'
+
 # get the absolute path to the Buffet directory
-relpath="$(dirname "$0")"
-cd "$relpath/.."
+rel_path="$(dirname "$0")"
+cd "$rel_path/.."
 export BUFFET_DIRECTORY="$(pwd)"
 
 # link every dotfile in dotfiles/ into the user's home directory
@@ -12,3 +14,17 @@ for dotfile in $BUFFET_DIRECTORY/dotfiles/*; do
   [ ! -h "$original" ] && mv "$original" "$original.unused" 2> /dev/null
   ln -fs "$dotfile" "$original"
 done
+
+# install vundle to ease installing Vim plugins
+vundle_dir="$HOME/.vim/bundle"
+vundle_path="$vundle_dir/Vundle.vim"
+vundle_repo='git@github.com:gmarik/Vundle.vim.git'
+
+mkdir -p "$vundle_dir"
+if [ ! -d "$vundle_path" ]; then
+  echo '-- installing Vim plugins...'
+  git clone "$vundle_repo" "$vundle_path"
+  vim +PluginInstall +qall
+fi
+
+echo '-- your buffet has been served!'
