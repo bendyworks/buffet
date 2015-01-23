@@ -29,10 +29,10 @@ set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 
 " source Vim plugins we've standardized around
-call SourceIfExists('~/.vundle')
+call SourceIfExists($HOME . '/.vundle')
 
 " source local additional plugins
-call SourceIfExists('~/.vundle.local')
+call SourceIfExists($HOME . '/.vundle.local')
 
 " required to end Vundle
 call vundle#end()
@@ -152,4 +152,4 @@ let g:NERDTreeIgnore = ['\.pyc$', '\.pyo$', '\.rbc$', '\.rbo$', '\.class$', '\.h
 " LOCAL OVERRIDE ==============================================================
 
 " source a local override if it exists
-call SourceIfExists('~/.vimrc.local')
+call SourceIfExists($HOME . '/.vimrc.local')
