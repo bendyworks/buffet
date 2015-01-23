@@ -36,8 +36,8 @@ alias ls='ls -FG'
 # normalize the PATH stack
 export PATH='/usr/local/bin:/usr/local/sbin:/usr/bin:/usr/sbin:/bin:/sbin'
 
-# add our shared scripts to the PATH
-export PATH="$PATH:$HOME/.buffet/bin"
+# prepend our shared scripts to the PATH so they take priority
+export PATH="$HOME/.buffet/bin:$PATH"
 
 # set the default editor to Vim
 export EDITOR=vim
