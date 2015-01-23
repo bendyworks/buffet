@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+
+# We need this because most linux shells will by default source a `.bashrc`
+# file, but OSX sources a `.bash_profile` instead.
+
+. "$HOME/.bashrc"
