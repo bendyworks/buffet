@@ -33,9 +33,9 @@ to their respective programs.
 Local (preferably non-destructive) overrides for these configurations can be
 set on a per-user basis by adding the following files to your home directory:
 
-- `.bashrc.local`
-- `.vimrc.local`
-- `.vundle.local`
+- `.bashrc.local` to override terminal settings
+- `.vimrc.local` to override Vim settings
+- `.vundle.local` to load additional plugins in Vim
 
 ## Contributing
 
