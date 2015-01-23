@@ -12,31 +12,30 @@ These configurations assume up-to-date versions of the following tools:
 
 ## Usage
 
-Clone this project into `~/.buffet`, `cd` into the directory, and run
-`./deploy`.
+Clone this project anywhere onto your machine and then input in your terminal:
 
-- All files `dotfiles/` are symlinked into your home directory. Any
-  dotfiles that would be overwritten are moved to `[filename].unused`,
-  to avoid possibly overwriting old dotfiles using the `.old` extension.
+```sh
+$ [your buffet directory]/bin/deploy
+```
 
-- Vim plugins are stored in `vim/plugins/` as [Git submodules][1] and
-  symlinked into `~/.vim/bundle`, the default [Pathogen][2] directory. Any
-  conflicting bundles are moved into `~/.vim/unused`.
+All files within `dotfiles/` are symlinked into your home directory. Any
+dotfiles that would be overwritten are moved to `[filename].unused`, to avoid
+possibly overwriting old configurations.
 
-  [1]: http://git-scm.com/book/en/v2/Git-Tools-Submodules
-  [2]: https://github.com/tpope/vim-pathogen
+`dotfiles/prompt` holds the Bash prompt styling, and `dotfiles/vundle` contains
+[Vundle][1] DSL syntax for managing Vim plugins. Otherwise, all dotfiles belong
+to their respective programs.
 
-- Files within `bashrcs/` are sourced by the main `dotfiles/bashrc` and
-  files within `vim/vimrcs/` are sourced by the main `dotfiles/vimrc`, to
-  allow for cleaner organization.
+  [1]: https://github.com/gmarik/Vundle.vim
 
 ## Local Overrides
 
-After sourcing all Buffet `.bash` files, Bash will check for the existance of
-a `~/.bashrc.local` and source it if it exists. Similarly, when Vim sources its
-`.vim` files, it will check for the existance of a `~/.vimrc.local` and source
-it if it exists. In this way, any user is able to add their own (preferably
-non-destructive) configurations.
+Local (preferably non-destructive) overrides for these configurations can be
+set on a per-user basis by adding the following files to your home directory:
+
+- `.bashrc.local`
+- `.vimrc.local`
+- `.vundle.local`
 
 ## Contributing
 
@@ -49,10 +48,10 @@ Otherwise, pull requests are always welcome!
 
 ## Thanks
 
-So many lines are cribbed from [Josh][3]'s dotfiles that I lost count. He is
+So many lines are cribbed from [Josh][2]'s dotfiles that I lost count. He is
 the workflow avatar.
 
-  [3]: https://github.com/losingkeys
+  [2]: https://github.com/losingkeys
 
 ## License
 
