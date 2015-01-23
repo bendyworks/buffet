@@ -1,0 +1,9 @@
+Plugin 'gmarik/vundle'        " vim bundle manager
+Plugin 'bling/vim-airline'    " better status line
+Plugin 'kien/ctrlp.vim'       " fuzzy-finder purely in VimL
+Plugin 'scrooloose/syntastic' " syntax checking
+Plugin 'scrooloose/nerdtree'  " better file navigation
+Plugin 'tpope/vim-surround'   " deal with (),<>, etc
+Plugin 'tpope/vim-fugitive'   " so much Git integration
+Plugin 'tpope/vim-commentary' " easily comment lines/blocks
+Plugin 'tpope/vim-rails'      " so many Rails helpers

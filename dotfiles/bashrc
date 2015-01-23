@@ -12,30 +12,32 @@ _source_if_exists() {
 
 
 
-
 # ALIASES =====================================================================
 
 # shortcuts for the most commonly used tools
-alias be="bundle exec"
-alias v="vim"
-alias g="git"
+alias be='bundle exec'
+alias v='vim'
+alias g='git'
 
 # attach to the tmux session or create a new named after the user
 alias t='tmux attach-session -t "$(whoami)" || tmux new-session -s "$(whoami)"'
+
+# update all Vim plugins
+alias vundle='vim +PluginInstall! +qall'
+
+# override common tools with useful arguments
+alias grep='grep --color'
+alias ls='ls -FG'
 
 
 
 # VARIABLES ===================================================================
 
-# normalize the "PATH" stack
+# normalize the PATH stack
 export PATH='/usr/local/bin:/usr/local/sbin:/usr/bin:/usr/sbin:/bin:/sbin'
 
-# "PATH" appends for personal scripts
+# add our shared scripts to the PATH
 export PATH="$PATH:$HOME/.buffet/bin"
-
-# make "ls" results more easily read
-export LS_OPTIONS='--color=auto'
-export CLICOLOR='1'
 
 # set the default editor to Vim
 export EDITOR=vim

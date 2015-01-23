@@ -32,17 +32,17 @@ white=97
 
 # set a color to a portion of text
 _color() {
-  echo "\e[$1m$2\e[0m"
+  echo "\[\e[0;$1m\]$2\[\e[0;0m\]"
 }
 
 # divider between information
 _component() {
-  echo " $(_color $light_gray "($1:") $2$(_color $light_gray ")")"
+  echo "$(_color $light_gray " | $1: ")$2"
 }
 
 # find the current git branch
 _git_branch() {
-  echo $(git rev-parse --abbrev-ref HEAD 2> /dev/null)
+  echo "$(git rev-parse --abbrev-ref HEAD 2> /dev/null)"
 }
 
 # set git branch color on whether current branch is "dirty" or not
@@ -62,44 +62,57 @@ _git_status_color() {
 
 # display the current directory
 _directory() {
-  echo "$(_color $cyan "\w")"
+  echo "$(_color $cyan '\w')"
 }
 
 # display the git branch
 _git_status() {
-  local current_branch=$(_git_branch)
+  local current_branch="$(_git_branch)"
 
-  if [[ -n $current_branch ]]; then
+  if [[ -n "$current_branch" ]]; then
     echo "$(_component 'git' "$(_color "$(_git_status_color)" "$current_branch")")"
   fi
 }
 
 # display a count of the backgrounded/stopped jobs
 _jobs_count() {
-  local count=$(jobs | wc -l)
-  count=${count##*\ }
+  local count="$(jobs | wc -l)" # count number of backgrounded jobs
+  count="${count##*\ }"         # remove preceding whitespace
 
-  if [ ! $count -eq 0 ]; then
-    echo "$(_component 'jobs' "$(_color $yellow "$count")")"
+  if [ ! "$count" -eq 0 ]; then
+    echo "$(_component 'jobs' "$(_color "$yellow" "$count")")"
+  fi
+}
+
+# display a count of the directory stack
+_dirs_count() {
+  local count="$(dirs | wc -w)" # count directory stack size
+  count="${count##*\ }"         # remove preceding whitespace
+  count="$((count - 1))"        # normalize the stack count
+
+  if [ ! "$count" -eq 0 ]; then
+    echo "$(_component 'dirs' "$(_color "$light_magenta" "$count")")"
   fi
 }
 
 # if logged into a remote host also using these dotfiles, display the hostname
 _remote() {
-  if [[ -n $SSH_CONNECTION ]]; then
-    echo "$(_color $magenta $HOST):"
+  if [[ -n "$SSH_CONNECTION" ]]; then
+    echo "$(_color "$magenta" "$HOST"):"
   fi
 }
 
 # change prompt arrow color based on exit status of last command
 _exit_flag() {
-  if [ $1 -eq 0 ]; then
-    prompt_color=$green
+  local prompt_color
+
+  if [ "$1" -eq 0 ]; then
+    prompt_color="$green"
   else
-    prompt_color=$red
+    prompt_color="$red"
   fi
 
-  echo "$(_color $prompt_color '> ')"
+  echo "$(_color "$prompt_color" '>') "
 }
 
 
@@ -108,8 +121,8 @@ _exit_flag() {
 
 # combine the above functions into a pretty and informative prompt
 _prompt() {
-  local last_exit_code=$?
-  PS1="\n$(_remote)$(_directory)$(_git_status)$(_jobs_count)\n$(_exit_flag $last_exit_code)"
+  local last_exit_code="$?"
+  PS1="\n$(_remote)$(_directory)$(_git_status)$(_jobs_count)$(_dirs_count)\n$(_exit_flag "$last_exit_code")"
 }
 
 PROMPT_COMMAND='_prompt'
