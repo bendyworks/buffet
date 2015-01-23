@@ -16,7 +16,7 @@ endfunction
 
 " source a file if it exists
 function! SourceIfExists(filename)
-  if filereadable(filename) | execute 'source ' . filename | endif
+  if filereadable(a:filename) | execute 'source ' . a:filename | endif
 endfunction
 
 
