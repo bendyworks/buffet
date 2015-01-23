@@ -135,7 +135,7 @@ nnoremap g# g#zz
 
 
 
-" FILE BROWSER ================================================================
+" FILE BROWSING ===============================================================
 
 " NERDTree-specific settings
 map <leader>nt :NERDTreeToggle<CR> " open/close NERDtree
@@ -146,6 +146,9 @@ let g:NERDTreeShowHidden=1 " show hidden files
 
 " don't display compiled or otherwise useless files
 let g:NERDTreeIgnore = ['\.pyc$', '\.pyo$', '\.rbc$', '\.rbo$', '\.class$', '\.hi$', '\.o$', '\~$']
+
+" hide certain files from Ctrl-P
+set wildignore+=*/tmp/*,*.so,*.swp,*.zip " OSX/Linux
 
 
 
