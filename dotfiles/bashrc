@@ -33,10 +33,10 @@ alias ls='ls -FG'
 
 # VARIABLES ===================================================================
 
-# normalize the "PATH" stack
+# normalize the PATH stack
 export PATH='/usr/local/bin:/usr/local/sbin:/usr/bin:/usr/sbin:/bin:/sbin'
 
-# "PATH" appends for personal scripts
+# add our shared scripts to the PATH
 export PATH="$PATH:$HOME/.buffet/bin"
 
 # set the default editor to Vim
