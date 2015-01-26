@@ -3,6 +3,15 @@ set nocompatible
 
 
 
+" SYSTEM ======================================================================
+
+" keep these necessary files from being littered all over the machine
+set undodir=~/.vim/undo//
+set backupdir=~/.vim/backup//
+set directory=~/.vim/swp//
+
+
+
 " HELPER FUNCTIONS ============================================================
 
 " toggle between light/dark backgrounds

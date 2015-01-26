@@ -2,6 +2,8 @@
 
 echo '-- serving Bendyworks buffet...'
 
+# DOTFILE LINKING =============================================================
+
 # get the absolute path to the Buffet directory
 rel_path="$(dirname "$0")"
 cd "$rel_path/.."
@@ -15,8 +17,18 @@ for dotfile in $BUFFET_DIRECTORY/dotfiles/*; do
   ln -fs "$dotfile" "$original"
 done
 
+
+
+# VIM SETUP ===================================================================
+
+# set backup directories so that .swp files don't litter the workspace
+vim_dir="$HOME/.vim"
+mkdir -p "$vim_dir/backup"
+mkdir -p "$vim_dir/swp"
+mkdir -p "$vim_dir/undo"
+
 # install vundle to ease installing Vim plugins
-vundle_dir="$HOME/.vim/bundle"
+vundle_dir="$vim_dir/bundle"
 vundle_path="$vundle_dir/Vundle.vim"
 vundle_repo='git@github.com:gmarik/Vundle.vim.git'
 
