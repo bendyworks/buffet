@@ -113,7 +113,7 @@ map <leader>w :set wrap!<CR>               " toggle line wrapping
 map <leader>r :set relativenumber!<CR>     " toggle relative/normal line numbers
 map <leader>b :call ToggleBackground()<CR> " toggle between light/dark backgrounds
 
-
+set guifont=Menlo:h18       " Set font to a reasonable size for GUI clients (eg Macvim)
 
 " FILETYPES ===================================================================
 
