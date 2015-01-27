@@ -30,7 +30,7 @@
 
 [alias]
   # commit-specific aliases
-  ci     = commit
+  ci     = commit --verbose
   amend  = commit --amend --reuse-message=HEAD
   reauth = commit --amend --reset-author --reuse-message=HEAD
 

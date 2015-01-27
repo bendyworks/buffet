@@ -18,6 +18,8 @@ _source_if_exists() {
 alias be='bundle exec'
 alias v='vim'
 alias g='git'
+alias gst='git status'
+alias gap='git add -p'
 
 # attach to the tmux session or create a new named after the user
 alias t='tmux attach-session -t "$(whoami)" || tmux new-session -s "$(whoami)"'
@@ -28,6 +30,7 @@ alias vundle='vim +PluginInstall! +qall'
 # override common tools with useful arguments
 alias grep='grep --color'
 alias ls='ls -FG'
+alias la='ls -lah'
 
 
 
