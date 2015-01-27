@@ -15,6 +15,7 @@ _source_if_exists() {
 # ALIASES =====================================================================
 
 # shortcuts for the most commonly used tools
+alias pgup='pg_ctl -D /usr/local/var/postgres -l /usr/local/var/postgres/server.log start'
 alias be='bundle exec'
 alias v='vim'
 alias g='git'
