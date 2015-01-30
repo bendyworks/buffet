@@ -157,7 +157,9 @@ let g:NERDTreeShowHidden=1 " show hidden files
 let g:NERDTreeIgnore = ['\.pyc$', '\.pyo$', '\.rbc$', '\.rbo$', '\.class$', '\.hi$', '\.o$', '\~$']
 
 " hide certain files from Ctrl-P
-set wildignore+=*/tmp/*,*.so,*.swp,*.zip " OSX/Linux
+set wildignore+=*/tmp/*,*.so,*.swp,*.zip              "standard system files
+set wildignore+=*/node_modules/*,*/bower_components/* "3rd-party javascript packages
+set wildignore+=*/vendor/*                            "3rd-party Rails gems
 
 
 
