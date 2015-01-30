@@ -61,7 +61,7 @@ set virtualedit=all             " cursor can move past the end of the line
 set mouse=a                     " enable mouse reporting/highlighting/scrolling
 
 " use the system clipboard as the default register
-set clipboard=unnamedplus,unnamed,autoselect
+set clipboard=unnamedplus,unnamed
 
 " change the default tabs to two spaces
 set expandtab     " use soft-tabs
