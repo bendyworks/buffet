@@ -12,29 +12,6 @@ _source_if_exists() {
 
 
 
-# ALIASES =====================================================================
-
-# shortcuts for the most commonly used tools
-alias pgup='pg_ctl -D /usr/local/var/postgres -l /usr/local/var/postgres/server.log start'
-alias be='bundle exec'
-alias v='vim'
-alias g='git'
-alias gst='git status'
-alias gap='git add -p'
-
-# attach to the tmux session or create a new named after the user
-alias t='tmux attach-session -t "$(whoami)" || tmux new-session -s "$(whoami)"'
-
-# update all Vim plugins
-alias vundle='vim +PluginInstall! +qall'
-
-# override common tools with useful arguments
-alias grep='grep --color'
-alias ls='ls -FG'
-alias la='ls -lah'
-
-
-
 # VARIABLES ===================================================================
 
 # normalize the PATH stack
@@ -46,6 +23,37 @@ export PATH="$HOME/.buffet/bin:$PATH"
 # set the default editor to Vim
 export EDITOR=vim
 export VISUAL=vim
+
+# not used by any program, but nice to reference
+export PG_DATA_DIR='/usr/local/var/postgres'
+
+
+
+# ALIASES =====================================================================
+
+# shortcuts for the most commonly used tools
+alias be='bundle exec'
+alias v='vim'
+alias g='git'
+
+# override common tools with useful arguments
+alias grep='grep --color'
+alias ls='ls -FG'
+alias la='ls -lah'
+
+# Git aliases adopted by seemingly every dev shop
+alias gst='git status'
+alias gap='git add -p'
+
+# make Postgres not a huge PITA to start/stop
+alias pgup="pg_ctl -D $PG_DATA_DIR -l $PG_DATA_DIR/server.log start"
+alias pgdown="pg_ctl -D $PG_DATA_DIR stop"
+
+# attach to the tmux session or create a new named after the user
+alias t='tmux attach-session -t "$(whoami)" || tmux new-session -s "$(whoami)"'
+
+# update all Vim plugins
+alias vundle='vim +PluginInstall! +qall'
 
 
 
