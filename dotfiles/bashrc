@@ -59,6 +59,9 @@ alias vundle='vim +PluginInstall! +qall'
 
 # AUTO-COMPLETES ==============================================================
 
+# use git autocompletion when git is aliased to g
+__git_complete g __git_main
+
 # source any homebrew-supplied autocompletion files
 comps_dir='/usr/local/etc/bash_completion.d'
 
