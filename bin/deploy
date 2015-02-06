@@ -1,6 +1,9 @@
 #!/usr/bin/env bash
 
+set -u
 echo '-- serving Bendyworks buffet...'
+
+
 
 # DOTFILE LINKING =============================================================
 
@@ -39,4 +42,10 @@ if [ ! -d "$vundle_path" ]; then
   vim +PluginInstall +qall
 fi
 
+
+
+# CLOSE UP SHOP ===============================================================
+
 echo '-- your buffet has been served!'
+set +u
+exit 0
