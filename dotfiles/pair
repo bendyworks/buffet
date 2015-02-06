@@ -1,0 +1,102 @@
+pair() {
+  local name names email pair_name pair_email user usernames
+
+  #### CONFIGURATION #####################################################
+  local PAIR_EMAIL_USERNAME='dev'
+  local PAIR_EMAIL_DOMAIN='bendyworks.com'
+
+  # Bendyworkers:
+  local begriffs='Joe Nelson'
+  local bendycode='Stephen Anderson'
+  local bigtiger='Jim Remsik'
+  local devn='Devin Walters'
+  local jaym3s='Jaymes Waters'
+  local listrophy='Bradley Grzesiak'
+  local mathias='Matt Gauger'
+  local randland='Nick Karpenske'
+  local rylnd='Ryland Herrick'
+  local twopoint718='Chris Wilson'
+  local whblondeau='Bill Blondeau'
+  local spinningtopsofdoom='Peter Schuck'
+
+  # Other:
+  local jcarley='Jeff Carley'
+  local angelic='Angel N. Sciortino'
+  local glynnis='Glynnis Ritchie'
+  local jdpace='Jared Pace'
+  local m5rk='Mark McEahern'
+  #### END CONFIGURATION ##################################################
+
+  set_session_vars() {
+    [[ ! -f "$HOME/.pairrc" ]] || source "$HOME/.pairrc"
+  }
+
+  print_config() {
+    set_session_vars
+    [[ -n "$GIT_AUTHOR_NAME" ]] && name="$GIT_AUTHOR_NAME" || name=$(git config user.name)
+    [[ -n "$GIT_AUTHOR_EMAIL" ]] && email="$GIT_AUTHOR_EMAIL" || email=$(git config user.email)
+    echo "user.name  = $name"
+    echo "user.email = $email"
+  }
+
+  case "x$1" in
+  x-u) echo "unset GIT_AUTHOR_NAME GIT_AUTHOR_EMAIL" > "$HOME/.pairrc"
+       print_config
+       return 0
+       ;;
+  x-q) set_session_vars
+       return 0
+       ;;
+  x-h | x--help)
+       echo "Usage: pair [option] | [username...]"
+       echo "Examples:"
+       echo "  pair rylnd mathias     Sets git author to "Matt Gauger and Ryland Herrick""
+       echo "  pair                   Lists current author/email"
+       echo "Options:"
+       echo "  -u                     Unsets author/email"
+       echo "  -h, --help             Prints this lovely message"
+       return 0
+       ;;
+  x-*) echo "Unknown option: '$1'"
+       return 1
+       ;;
+  esac
+
+  usernames=($(printf "%s\n" $@ | tr A-Z a-z | sort))
+
+  if [[ -z "$usernames" ]]; then
+    print_config
+    return 0
+  fi
+
+  for user in ${usernames[@]}; do
+    if [[ -z "$(eval echo \$$user)" ]]; then # user cache MISS, check GitHub
+      name=$(curl -is https://api.github.com/users/$user | grep -o '"name":.*"' | cut -d \" -f 4)
+
+      if [[ -z "$name" ]]; then
+        echo "No author name found for GitHub username: $user."
+        echo "Are you online, and does their GitHub profile have a name?"
+        return 1
+      else
+        local $user="$name"
+      fi
+    fi
+    names=(${names[@]} \$$user)
+    pair_email=$pair_email+$user
+  done
+
+  pair_email=$PAIR_EMAIL_USERNAME$pair_email@$PAIR_EMAIL_DOMAIN
+
+  if [[ ${#names[@]} > 2 ]]; then
+    pair_name=$(printf "%s, " "${names[@]}")
+    pair_name="$(eval echo $pair_name)"
+    pair_name=$(echo "$pair_name" | sed 's/,\([^,]*\),$/, and\1/')
+  else
+    pair_name=$(printf "%s and " "${names[@]}")
+    pair_name="$(eval echo $pair_name)"
+    pair_name=$(echo "$pair_name" | sed 's/ and$//')
+  fi
+
+  echo "export GIT_AUTHOR_NAME=\"$pair_name\" GIT_AUTHOR_EMAIL=\"$pair_email\"" > "$HOME/.pairrc"
+  print_config
+}
