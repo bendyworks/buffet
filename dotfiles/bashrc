@@ -58,6 +58,15 @@ alias vundle='vim +PluginInstall! +qall'
 
 
 
+# FUNCTIONS ===================================================================
+
+take() {
+  mkdir -p $1;
+  cd $1
+}
+
+
+
 # AUTO-COMPLETES ==============================================================
 
 # source any homebrew-supplied autocompletion files
