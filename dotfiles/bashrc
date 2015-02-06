@@ -17,8 +17,9 @@ _source_if_exists() {
 # normalize the PATH stack
 export PATH='/usr/local/bin:/usr/local/sbin:/usr/bin:/usr/sbin:/bin:/sbin'
 
-# prepend our shared scripts to the PATH so they take priority
-export PATH="$HOME/.buffet/bin:$PATH"
+# additional paths
+export PATH="$PATH:$HOME/.rvm/bin"    # append RVM bins
+export PATH="$HOME/.buffet/bin:$PATH" # prepend Bendyworks bins
 
 # set the default editor to Vim
 export EDITOR=vim
@@ -72,5 +73,6 @@ fi
 
 # OTHER SOURCED FILES =========================================================
 
-_source_if_exists "$HOME/.prompt"
-_source_if_exists "$HOME/.bashrc.local"
+_source_if_exists "$HOME/.prompt"          # Bash prompt
+_source_if_exists "$HOME/.bashrc.local"    # local .bashrc overrides
+_source_if_exists "$HOME/.rvm/scripts/rvm" # required by RVM
