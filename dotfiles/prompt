@@ -37,7 +37,7 @@ _color() {
 
 # divider between information
 _component() {
-  echo "$(_color $light_gray " | $1: ")$2"
+  echo "$(_color $default " | $1: ")$2"
 }
 
 # find the current git branch
@@ -62,7 +62,7 @@ _git_status_color() {
 
 # display the current directory
 _directory() {
-  echo "$(_color $cyan '\w')"
+  echo "$(_color $blue '\w')"
 }
 
 # display the git branch
