@@ -128,30 +128,43 @@ local opt_email_domain opt_email_prefix opt_unpair  # function options
 local domain name prefix users                      # used in for loops
 local pair_email pair_name usernames                # crafting the pair values
 
-# Parse options and arguments, including getting the list of usernames to pair
 
-usernames=()
+
+# Parse options and arguments, including getting the list of usernames to pair
 
 while [ $# -gt 0 ] ; do
   case "$1" in
-    '-h' | '--help'   ) _pair_show_usage_long "$usage_short"                                    ; return 0 ;;
-    '-u' | '--unpair' ) opt_unpair="true"                                                       ; break    ;;
+    '-h' | '--help'   ) _pair_show_usage_long "$usage_short"                         ; return 0 ;;
+
+    '-u' | '--unpair' ) opt_unpair="true"                                            ; break    ;;
+
     '-d' | '--domain' ) if [[ -n "$2" ]] ; then
                           opt_email_domain=$2
                         else
                           echo -e "$(_pair_err_missing_arg "$1")"
                           return 1
-                        fi                                                                      ; shift 2  ;;
+                        fi                                                           ; shift 2  ;;
+
     '-p' | '--prefix' ) if [[ -n "$2" ]] ; then
                           opt_email_prefix=$2
                         else
                           echo -e "$(_pair_err_missing_arg "$1")"
                           return 1
-                        fi                                                                      ; shift 2  ;;
-    -*                ) echo -e "$(_pair_err_invalid_option "$1")" >&2                             ; return 1 ;;
-    *                 ) usernames+=("$1")                                                       ; shift 1  ;;
+                        fi                                                           ; shift 2  ;;
+
+    -*                ) echo -e "$(_pair_err_invalid_option "$1")" >&2               ; return 1 ;;
+
+    *                 ) if [[ -n $usernames ]] ; then
+                          usernames="$usernames\n$1"
+                        else
+                          usernames="$1"
+                        fi                                                           ; shift 1 ;;
   esac
 done
+
+
+
+# Unset the Git config vars if unpairing
 
 if [[ -n "$opt_unpair" ]]; then
   _pair_unset
@@ -163,7 +176,7 @@ else
 
   # Error if no usernames are supplied
 
-  if [[ -z "${usernames[0]}" ]]; then
+  if [[ -z "$usernames" ]]; then
     echo -e "$err_no_users"
     return 1
   fi
@@ -172,7 +185,7 @@ else
 
   # Generate the pairing name
 
-  for user in ${usernames[*]}; do
+  for user in $(echo -e "$usernames" | sort); do
     name="$(_pair_name_for "$user")"
 
     if [[ -z "$name" ]] ; then
@@ -197,7 +210,7 @@ else
   done
 
   pair_email="$email_prefix"
-  for user in ${usernames[*]}; do
+  for user in $(echo -e "$usernames" | sort); do
     pair_email="$pair_email+$user"
   done
   pair_email="$pair_email@$email_domain"
@@ -214,90 +227,6 @@ fi
 # SUCCESS =====================================================================
 
 . "$pair_file"
-echo -e "\033[0;32mSUCCESS:\033[0m $pair_name <$pair_email>"
+echo -e "New pair is: $pair_name <$pair_email>"
 return 0
 }
-
-
-
-
-
-
-
-
-
-
-
-#  set_session_vars() {
-#    [[ ! -f "$HOME/.pairrc" ]] || source "$HOME/.pairrc"
-#  }
-#
-#  print_config() {
-#    set_session_vars
-#    [[ -n "$GIT_AUTHOR_NAME" ]] && name="$GIT_AUTHOR_NAME" || name=$(git config user.name)
-#    [[ -n "$GIT_AUTHOR_EMAIL" ]] && email="$GIT_AUTHOR_EMAIL" || email=$(git config user.email)
-#    echo "user.name  = $name"
-#    echo "user.email = $email"
-#  }
-#
-#  case "x$1" in
-#  x-u) echo "unset GIT_AUTHOR_NAME GIT_AUTHOR_EMAIL" > "$HOME/.pairrc"
-#       print_config
-#       return 0
-#       ;;
-#  x-q) set_session_vars
-#       return 0
-#       ;;
-#  x-h | x--help)
-#       echo "Usage: pair [option] | [username...]"
-#       echo "Examples:"
-#       echo "  pair rylnd mathias     Sets git author to "Matt Gauger and Ryland Herrick""
-#       echo "  pair                   Lists current author/email"
-#       echo "Options:"
-#       echo "  -u                     Unsets author/email"
-#       echo "  -h, --help             Prints this lovely message"
-#       return 0
-#       ;;
-#  x-*) echo "Unknown option: '$1'"
-#       return 1
-#       ;;
-#  esac
-#
-#  usernames=($(printf "%s\n" $@ | tr A-Z a-z | sort))
-#
-#  if [[ -z "$usernames" ]]; then
-#    print_config
-#    return 0
-#  fi
-#
-#  for user in ${usernames[@]}; do
-#    if [[ -z "$(eval echo \$$user)" ]]; then # user cache MISS, check GitHub
-#      name=$(curl -is https://api.github.com/users/$user | grep -o '"name":.*"' | cut -d \" -f 4)
-#
-#      if [[ -z "$name" ]]; then
-#        echo "No author name found for GitHub username: $user."
-#        echo "Are you online, and does their GitHub profile have a name?"
-#        return 1
-#      else
-#        local $user="$name"
-#      fi
-#    fi
-#    names=(${names[@]} \$$user)
-#    pair_email=$pair_email+$user
-#  done
-#
-#  pair_email=$PAIR_EMAIL_USERNAME$pair_email@$PAIR_EMAIL_DOMAIN
-#
-#  if [[ ${#names[@]} > 2 ]]; then
-#    pair_name=$(printf "%s, " "${names[@]}")
-#    pair_name="$(eval echo $pair_name)"
-#    pair_name=$(echo "$pair_name" | sed 's/,\([^,]*\),$/, and\1/')
-#  else
-#    pair_name=$(printf "%s and " "${names[@]}")
-#    pair_name="$(eval echo $pair_name)"
-#    pair_name=$(echo "$pair_name" | sed 's/ and$//')
-#  fi
-#
-#  echo "export GIT_AUTHOR_NAME=\"$pair_name\" GIT_AUTHOR_EMAIL=\"$pair_email\"" > "$HOME/.pairrc"
-#  print_config
-#}
