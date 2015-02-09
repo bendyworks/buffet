@@ -1,9 +1,10 @@
 #!/usr/bin/env bash
 
+[[ -f "$HOME/.pairrc" ]] && source "$HOME/.pairrc"
+
 function pair {
 
 local pair_file="$HOME/.pairrc"
-
 
 
 # STATIC TEXT =================================================================

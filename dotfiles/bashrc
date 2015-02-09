@@ -73,6 +73,7 @@ fi
 
 # OTHER SOURCED FILES =========================================================
 
+_source_if_exists "$HOME/.pair"            # "pair() shell function to set Git pairs"
 _source_if_exists "$HOME/.prompt"          # Bash prompt
 _source_if_exists "$HOME/.bashrc.local"    # local .bashrc overrides
 _source_if_exists "$HOME/.rvm/scripts/rvm" # required by RVM
