@@ -28,6 +28,23 @@ white=97
 
 
 
+# COLOR OVERRIDES =============================================================
+
+# if you wish to use colors other than the defaults provided, define and export
+# any of these in your `.bashrc.local`
+
+PROMPT_COLOR_DIVIDER=${PROMPT_COLOR_DIVIDER-"$default"}
+PROMPT_COLOR_DIRECTORY=${PROMPT_COLOR_DIRECTORY-"$blue"}
+PROMPT_COLOR_DIRS_COUNT=${PROMPT_COLOR_DIRS_COUNT-"$light_magenta"}
+PROMPT_COLOR_EXIT_FAILURE=${PROMPT_COLOR_EXIT_FAILURE-"$red"}
+PROMPT_COLOR_EXIT_SUCCESS=${PROMPT_COLOR_EXIT_SUCCESS-"$green"}
+PROMPT_COLOR_GIT_CLEAN=${PROMPT_COLOR_GIT_CLEAN-"$green"}
+PROMPT_COLOR_GIT_DIRTY=${PROMPT_COLOR_GIT_DIRTY-"$red"}
+PROMPT_COLOR_JOBS_COUNT=${PROMPT_COLOR_JOBS_COUNT-"$yellow"}
+PROMPT_COLOR_REMOTE=${PROMPT_COLOR_REMOTE-"$magenta"}
+
+
+
 # HELPER FUNCTIONS ============================================================
 
 # set a color to a portion of text
@@ -37,7 +54,7 @@ _color() {
 
 # divider between information
 _component() {
-  echo "$(_color $default " | $1: ")$2"
+  echo "$(_color $PROMPT_COLOR_DIVIDER " | $1: ")$2"
 }
 
 # find the current git branch
@@ -50,9 +67,9 @@ _git_status_color() {
   git diff --quiet
 
   if [ ! $? -eq 0 ]; then
-    echo "$red"
+    echo "$PROMPT_COLOR_GIT_DIRTY"
   else
-    echo "$green"
+    echo "$PROMPT_COLOR_GIT_CLEAN"
   fi
 }
 
@@ -62,7 +79,7 @@ _git_status_color() {
 
 # display the current directory
 _directory() {
-  echo "$(_color $blue '\w')"
+  echo "$(_color "$PROMPT_COLOR_DIRECTORY" '\w')"
 }
 
 # display the git branch
@@ -80,7 +97,7 @@ _jobs_count() {
   count="${count##*\ }"         # remove preceding whitespace
 
   if [ ! "$count" -eq 0 ]; then
-    echo "$(_component 'jobs' "$(_color "$yellow" "$count")")"
+    echo "$(_component 'jobs' "$(_color "$PROMPT_COLOR_JOBS_COUNT" "$count")")"
   fi
 }
 
@@ -91,14 +108,14 @@ _dirs_count() {
   count="$((count - 1))"        # normalize the stack count
 
   if [ ! "$count" -eq 0 ]; then
-    echo "$(_component 'dirs' "$(_color "$light_magenta" "$count")")"
+    echo "$(_component 'dirs' "$(_color "$PROMPT_COLOR_DIRS_COUNT" "$count")")"
   fi
 }
 
 # if logged into a remote host also using these dotfiles, display the hostname
 _remote() {
   if [[ -n "$SSH_CONNECTION" ]]; then
-    echo "$(_color "$magenta" "$HOST"):"
+    echo "$(_color "$PROMPT_COLOR_REMOTE" "$HOST"):"
   fi
 }
 
@@ -107,9 +124,9 @@ _exit_flag() {
   local prompt_color
 
   if [ "$1" -eq 0 ]; then
-    prompt_color="$green"
+    prompt_color="$PROMPT_COLOR_EXIT_SUCCESS"
   else
-    prompt_color="$red"
+    prompt_color="$PROMPT_COLOR_EXIT_FAILURE"
   fi
 
   echo "$(_color "$prompt_color" '>') "
