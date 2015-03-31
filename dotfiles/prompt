@@ -4,6 +4,10 @@
 # commented to make this (hopefully) easier to understand and modify
 
 
+# PROMPT CHARACTER ============================================================
+
+prompt_character='>'
+
 
 # COLORS ======================================================================
 
@@ -129,7 +133,7 @@ _exit_flag() {
     prompt_color="$PROMPT_COLOR_EXIT_FAILURE"
   fi
 
-  echo "$(_color "$prompt_color" '>') "
+  echo "$(_color "$prompt_color" "$prompt_character") "
 }
 
 
