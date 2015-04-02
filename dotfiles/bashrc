@@ -36,6 +36,8 @@ export PG_DATA_DIR='/usr/local/var/postgres'
 alias be='bundle exec'
 alias v='vim'
 alias g='git'
+alias gr='grunt'
+alias r='rake'
 
 # override common tools with useful arguments
 alias grep='grep --color'
