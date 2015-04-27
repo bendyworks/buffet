@@ -45,6 +45,7 @@ PROMPT_COLOR_EXIT_SUCCESS=${PROMPT_COLOR_EXIT_SUCCESS-"$green"}
 PROMPT_COLOR_GIT_CLEAN=${PROMPT_COLOR_GIT_CLEAN-"$green"}
 PROMPT_COLOR_GIT_DIRTY=${PROMPT_COLOR_GIT_DIRTY-"$red"}
 PROMPT_COLOR_JOBS_COUNT=${PROMPT_COLOR_JOBS_COUNT-"$yellow"}
+PROMPT_COLOR_PAIR=${PROMPT_COLOR_PAIR-"$default"}
 PROMPT_COLOR_REMOTE=${PROMPT_COLOR_REMOTE-"$magenta"}
 
 
@@ -77,6 +78,10 @@ _git_status_color() {
   fi
 }
 
+# return success if we're in a git repo
+_is_git_repo() {
+  git rev-parse --is-inside-work-tree
+}
 
 
 # PROMPT COMPONENTS ===========================================================
@@ -92,6 +97,14 @@ _git_status() {
 
   if [[ -n "$current_branch" ]]; then
     echo "$(_component 'git' "$(_color "$(_git_status_color)" "$current_branch")")"
+  fi
+}
+
+# display who is paired (if set)
+_pair_status() {
+  if [[ -n "$GIT_AUTHOR_NAME" && -n "$(_is_git_repo)" ]]; then
+    local pair_initials=$(echo $GIT_AUTHOR_NAME | tr -d '[:lower:] ' | tr '+' '/')
+    echo "$(_component 'pair' "$(_color "$PROMPT_COLOR_PAIR" "$pair_initials")")"
   fi
 }
 
@@ -143,7 +156,7 @@ _exit_flag() {
 # combine the above functions into a pretty and informative prompt
 _prompt() {
   local last_exit_code="$?"
-  PS1="\n$(_remote)$(_directory)$(_git_status)$(_jobs_count)$(_dirs_count)\n$(_exit_flag "$last_exit_code")"
+  PS1="\n$(_remote)$(_directory)$(_git_status)$(_pair_status)$(_jobs_count)$(_dirs_count)\n$(_exit_flag "$last_exit_code")"
 }
 
 PROMPT_COMMAND='_prompt'
