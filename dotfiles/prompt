@@ -80,7 +80,7 @@ _git_status_color() {
 
 # return success if we're in a git repo
 _is_git_repo() {
-  git rev-parse --is-inside-work-tree
+  git rev-parse --is-inside-work-tree 2> /dev/null
 }
 
 
