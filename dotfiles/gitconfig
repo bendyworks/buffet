@@ -50,3 +50,6 @@
   s      = status --short
   sha    = "!if [ -x \"$(command -v xclip)\" ]; then git rev-parse HEAD | tr -d [:space:] | xclip; elif [ -x \"$(command -v pbcopy)\" ]; then git rev-parse HEAD | tr -d [:space:] | pbcopy; fi"
   st     = status
+
+  # show current git user
+  whoami = var GIT_AUTHOR_IDENT
