@@ -42,10 +42,13 @@
   me     = merge
   noff   = merge --no-edit --no-ff
 
+  # logging
+  l      = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
+  lp     = log --patch
+
   # everything else
   ap     = add --patch
   b      = branch
-  l      = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
   put    = push origin HEAD --set-upstream
   s      = status --short
   sha    = "!if [ -x \"$(command -v xclip)\" ]; then git rev-parse HEAD | tr -d [:space:] | xclip; elif [ -x \"$(command -v pbcopy)\" ]; then git rev-parse HEAD | tr -d [:space:] | pbcopy; fi"
