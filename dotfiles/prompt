@@ -160,3 +160,6 @@ _prompt() {
 }
 
 PROMPT_COMMAND='_prompt'
+if [[ "$TERM_PROGRAM" = Apple_Terminal ]]; then
+  export PROMPT_COMMAND="$PROMPT_COMMAND;update_terminal_cwd;"
+fi
