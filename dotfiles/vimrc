@@ -161,7 +161,8 @@ set wildignore+=*/tmp/*,*.so,*.swp,*.zip              "standard system files
 set wildignore+=*/node_modules/*,*/bower_components/* "3rd-party javascript packages
 set wildignore+=*/vendor/*                            "3rd-party Rails gems
 
-
+" syntastic JS checker options
+let g:syntastic_javascript_checkers = ['jshint', 'jscs']
 
 " LOCAL OVERRIDE ==============================================================
 
