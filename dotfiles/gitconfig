@@ -59,3 +59,11 @@
 
   # show current git user
   whoami = var GIT_AUTHOR_IDENT
+
+[filter "lfs"]
+  clean = git lfs clean %f
+  smudge = git lfs smudge %f
+  required = true
+
+[include]
+  path = ~/.gitconfig.local
