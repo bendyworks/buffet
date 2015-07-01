@@ -32,6 +32,13 @@ export PG_DATA_DIR='/usr/local/var/postgres'
 
 # ALIASES =====================================================================
 
+# upwards directory navigation
+alias ..='cd ..'                # ':' is reserved in bash as equivalent to true
+alias ::='cd ../..'
+alias :::='cd ../../..'
+alias ::::='cd ../../../..'
+alias :::::='cd ../../../../..'
+
 # shortcuts for the most commonly used tools
 alias be='bundle exec'
 alias v='vim'
@@ -60,7 +67,6 @@ alias t='tmux attach-session -t "$(whoami)" || tmux new-session -s "$(whoami)"'
 
 # update all Vim plugins
 alias vundle='vim +PluginInstall! +qall'
-
 
 
 # FUNCTIONS ===================================================================
