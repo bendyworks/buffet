@@ -73,12 +73,10 @@ take() {
 # AUTO-COMPLETES ==============================================================
 
 # source any homebrew-supplied autocompletion files
-comps_dir='/usr/local/etc/bash_completion.d'
+comps_file='/usr/local/etc/bash_completion'
 
-if [ -d $comps_dir ]; then
-  for file in $(command ls $comps_dir); do
-    . "$comps_dir/$file"
-  done
+if [ -f $comps_file ]; then
+  . $comps_file
 fi
 
 # use git autocompletion when "git" is aliased to "g"
