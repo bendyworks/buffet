@@ -52,6 +52,9 @@ alias gap='git add -p'
 alias pgup="pg_ctl -D $PG_DATA_DIR -l $PG_DATA_DIR/server.log start"
 alias pgdown="pg_ctl -D $PG_DATA_DIR stop"
 
+# run a server in the current directory
+alias server='ruby -run -e httpd . -p 9090'
+
 # attach to the tmux session or create a new named after the user
 alias t='tmux attach-session -t "$(whoami)" || tmux new-session -s "$(whoami)"'
 
