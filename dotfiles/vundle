@@ -1,4 +1,4 @@
-Plugin 'gmarik/vundle'        " vim bundle manager
+Plugin 'gmarik/Vundle.vim'        " vim bundle manager
 Plugin 'bling/vim-airline'    " better status line
 Plugin 'kien/ctrlp.vim'       " fuzzy-finder purely in VimL
 Plugin 'scrooloose/syntastic' " syntax checking
