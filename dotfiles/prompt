@@ -83,6 +83,10 @@ _is_git_repo() {
   git rev-parse --is-inside-work-tree 2> /dev/null
 }
 
+_is_bare_repo() {
+  git rev-parse --is-bare-repository 2> /dev/null
+}
+
 
 # PROMPT COMPONENTS ===========================================================
 
@@ -93,10 +97,12 @@ _directory() {
 
 # display the git branch
 _buffet_git_status() {
-  local current_branch="$(_buffet_git_branch)"
+  if [[ -n "$(_is_git_repo)" && "$(_is_bare_repo)" != "true" ]]; then
+    local current_branch="$(_buffet_git_branch)"
 
-  if [[ -n "$current_branch" ]]; then
-    echo "$(_component 'git' "$(_color "$(_buffet_git_status_color)" "$current_branch")")"
+    if [[ -n "$current_branch" ]]; then
+      echo "$(_component 'git' "$(_color "$(_buffet_git_status_color)" "$current_branch")")"
+    fi
   fi
 }
 
