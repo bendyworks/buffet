@@ -63,12 +63,12 @@ _component() {
 }
 
 # find the current git branch
-_git_branch() {
+_buffet_git_branch() {
   echo "$(git rev-parse --abbrev-ref HEAD 2> /dev/null)"
 }
 
 # set git branch color on whether current branch is "dirty" or not
-_git_status_color() {
+_buffet_git_status_color() {
   git diff --quiet
 
   if [ ! $? -eq 0 ]; then
@@ -92,11 +92,11 @@ _directory() {
 }
 
 # display the git branch
-_git_status() {
-  local current_branch="$(_git_branch)"
+_buffet_git_status() {
+  local current_branch="$(_buffet_git_branch)"
 
   if [[ -n "$current_branch" ]]; then
-    echo "$(_component 'git' "$(_color "$(_git_status_color)" "$current_branch")")"
+    echo "$(_component 'git' "$(_color "$(_buffet_git_status_color)" "$current_branch")")"
   fi
 }
 
@@ -156,7 +156,7 @@ _exit_flag() {
 # combine the above functions into a pretty and informative prompt
 _prompt() {
   local last_exit_code="$?"
-  PS1="\n$(_remote)$(_directory)$(_git_status)$(_pair_status)$(_jobs_count)$(_dirs_count)\n$(_exit_flag "$last_exit_code")"
+  PS1="\n$(_remote)$(_directory)$(_buffet_git_status)$(_pair_status)$(_jobs_count)$(_dirs_count)\n$(_exit_flag "$last_exit_code")"
 }
 
 PROMPT_COMMAND='_prompt'

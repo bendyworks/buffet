@@ -84,8 +84,8 @@ take() {
 # source any homebrew-supplied autocompletion files
 comps_file='/usr/local/etc/bash_completion'
 
-if [ -f $comps_file ]; then
-  . $comps_file
+if [ -f `brew --prefix`/etc/bash_completion ]; then
+    . `brew --prefix`/etc/bash_completion
 fi
 
 # use git autocompletion when "git" is aliased to "g"
