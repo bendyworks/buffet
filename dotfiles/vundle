@@ -14,3 +14,4 @@ Plugin 'godlygeek/tabular'                  " Align tables, hashes, etc. program
 Plugin 'mustache/vim-mustache-handlebars'   " highlighting for mustache / handlebars
 Plugin 'ervandew/supertab'                  " configurable tab autocompletion
 Plugin 'mileszs/ack.vim'                    " Use Ack from vim
+Plugin 'slim-template/vim-slim'             " Slim template hightlighting
