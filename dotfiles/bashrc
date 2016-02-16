@@ -86,7 +86,7 @@ take() {
 comps_file='/usr/local/etc/bash_completion'
 
 OS="`uname`"
-case OS in
+case $OS in
   "Linux")
     ;;
   "Darwin")
