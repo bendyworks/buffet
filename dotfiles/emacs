@@ -70,6 +70,12 @@
 (global-set-key (kbd "C-c C-p f") 'projectile-find-file)
 (global-set-key (kbd "C-c C-p C-f") 'projectile-find-file)
 
+;;; Let's use `company-mode' for completions!
+(unless (package-installed-p 'company)
+  (package-install 'company))
+(require 'company)
+(add-hook 'after-init-hook 'global-company-mode)
+
 ;;; Load .emacs.local without protesting if it's not present.
 (load "~/.emacs.local" 1)
 
