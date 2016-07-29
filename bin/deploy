@@ -44,7 +44,8 @@ fi
 
 if hash apm 2>/dev/null; then
   echo '-- install Atom plugins...'
-  apm install linter merge-conflicts markdown-folder script vim-mode vim-surround atom-pair
+  apm install linter merge-conflicts markdown-folder script vim-mode vim-surround atom-pair \
+    language-gherkin language-haml
 fi
 
 
