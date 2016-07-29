@@ -1,3 +1,6 @@
+;;; NOTE: Requires at least Emacs version 24 for package To install
+;;; Emacs see: http://wikemacs.org/wiki/Installing_Emacs_on_OS_X
+;;; and/or https://emacsformacosx.com
 (require 'package)
 (add-to-list 'package-archives
              '("marmalade" . "http://marmalade-repo.org/packages/") t)
