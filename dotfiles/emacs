@@ -15,6 +15,11 @@
 (unless package-archive-contents
   (package-refresh-contents))
 
+;;; Provide vimmy escape hatch to `evil-mode'.  Press ⌘-/ or M-⌘-/ to
+;;; toggle `evil-mode'.
+(global-set-key (kbd "s-/") 'evil-mode)
+(global-set-key (kbd "M-s-/") 'evil-mode)
+
 ;; "y or n" instead of "yes or no"
 (defalias 'yes-or-no-p 'y-or-n-p)
 
