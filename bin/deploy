@@ -51,7 +51,8 @@ if hash apm 2>/dev/null; then
     Sublime-Style-Column-Selection atom-beautify atom-bootstrap3 atom-jshint atom-material-syntax \
     atom-material-ui atom-pair autocomplete-ruby file-icons highlight-selected language-ampscript \
     language-crontab language-gherkin language-haml linter linter-erb linter-htmlhint linter-js-yaml \
-    linter-jscs linter-rubocop linter-ruby merge-conflicts pigments pretty-json rails-rspec rspec
+    linter-jscs linter-rubocop linter-ruby merge-conflicts pigments pretty-json rails-rspec rspec \
+    toggle-packages atomic-emacs
 fi
 
 
