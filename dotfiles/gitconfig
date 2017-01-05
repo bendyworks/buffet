@@ -6,6 +6,7 @@
   ignorecase = false
   precomposeunicode = false
   excludesfile = ~/.gitignore
+  autocrlf = input
 
 [color]
   diff = auto
