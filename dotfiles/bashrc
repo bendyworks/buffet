@@ -78,6 +78,14 @@ take() {
   cd $1
 }
 
+# if you name your project folder "FOO" when your production heroku
+# application is named "FOO-production", then you can call:
+#
+#     prod heroku [cmd] [opts]
+#
+function prod() {
+  $* --app $(basename $(pwd))-production
+}
 
 
 # AUTO-COMPLETES ==============================================================
