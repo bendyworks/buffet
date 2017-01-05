@@ -18,8 +18,8 @@ _source_if_exists() {
 export PATH='/usr/local/bin:/usr/local/sbin:/usr/bin:/usr/sbin:/bin:/sbin'
 
 # additional paths
-export PATH="$PATH:$HOME/.rvm/bin"    # append RVM bins
 export PATH="$HOME/.buffet/bin:$PATH" # prepend Bendyworks bins
+export PATH="$HOME/.rvm/bin:$PATH"    # prepend RVM bins
 
 # set the default editor to Vim
 export EDITOR=vim
