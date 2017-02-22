@@ -138,7 +138,7 @@ _dirs_count() {
 # if logged into a remote host also using these dotfiles, display the hostname
 _remote() {
   if [[ -n "$SSH_CONNECTION" ]]; then
-    echo "$(_color "$PROMPT_COLOR_REMOTE" "$HOST"):"
+    echo "$(_color "$PROMPT_COLOR_REMOTE" `hostname`):"
   fi
 }
 
