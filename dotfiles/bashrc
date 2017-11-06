@@ -51,6 +51,7 @@ alias r='rake'
 alias grep='grep --color'
 alias ls='ls -FG'
 alias la='ls -lah'
+alias psack='ps aux | grep'
 
 # Git aliases adopted by seemingly every dev shop
 alias gst='git status'
