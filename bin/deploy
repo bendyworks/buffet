@@ -44,13 +44,13 @@ fi
 
 if hash apm 2>/dev/null; then
   echo '-- install Atom plugins...'
-  apm install linter merge-conflicts markdown-folder script vim-mode vim-surround atom-pair \
+  apm install linter merge-conflicts script vim-mode-plus vim-surround atom-pair \
     language-gherkin language-haml Sublime-Style-Column-Selection atom-typescript autocomplete-ruby \
     highlight-selected language-rspec linter linter-js-yaml linter-rubocop markdown-scroll-sync \
     merge-conflicts rails-rspec rails-transporter ruby-test toggle-quotes vim-mode-plus \
     Sublime-Style-Column-Selection atom-beautify atom-bootstrap3 atom-jshint atom-material-syntax \
-    atom-material-ui atom-pair autocomplete-ruby file-icons highlight-selected language-ampscript \
-    language-crontab language-gherkin language-haml linter linter-erb linter-htmlhint linter-js-yaml \
+    atom-material-ui autocomplete-ruby file-icons highlight-selected language-ampscript \
+    language-crontab language-gherkin linter linter-erb linter-htmlhint linter-js-yaml \
     linter-jscs linter-rubocop linter-ruby merge-conflicts pigments pretty-json rails-rspec rspec \
     toggle-packages atomic-emacs
 fi
