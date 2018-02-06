@@ -1,0 +1,7 @@
+# Steps:
+# 1. install Kdiff3 from http://kdiff3.sourceforge.net/
+# 2. Add the following to your .gitconfig.local file:
+[mergetool "kdiff3"]
+	path = /Applications/kdiff3.app/Contents/MacOS/kdiff3
+[alias]
+  dft = git difftool -d --tool=kdiff3
