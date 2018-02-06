@@ -4,4 +4,4 @@
 [mergetool "kdiff3"]
 	path = /Applications/kdiff3.app/Contents/MacOS/kdiff3
 [alias]
-  dft = git difftool -d --tool=kdiff3
+  dft = difftool -d --tool=kdiff3
