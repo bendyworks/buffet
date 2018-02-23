@@ -89,7 +89,7 @@ function prod() {
 }
 
 yolo() {
-  brew update && brew upgrade && brew postgresql-upgrade-database || brew cleanup && brew prune
+  brew update && brew outdated && brew upgrade && brew postgresql-upgrade-database || brew cleanup && brew prune
 }
 
 # AUTO-COMPLETES ==============================================================
