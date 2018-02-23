@@ -88,6 +88,9 @@ function prod() {
   $* --app $(basename $(pwd))-production
 }
 
+yolo() {
+  brew update && brew upgrade && brew postgresql-upgrade-database || brew cleanup && brew prune
+}
 
 # AUTO-COMPLETES ==============================================================
 
