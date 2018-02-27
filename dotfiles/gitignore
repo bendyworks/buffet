@@ -16,3 +16,6 @@ Thumbs.db
 
 # Compiled C++ files
 *.out
+
+# JetBrains IDE project data
+.idea
