@@ -3,24 +3,22 @@
 set -u
 echo '-- serving Bendyworks buffet...'
 
-
-
 # DOTFILE LINKING =============================================================
 
-# get the absolute path to the Buffet directory
+# absolute path to the Buffet directory
 rel_path="$(dirname "$0")"
+
 cd "$rel_path/.."
+
 export BUFFET_DIRECTORY="$(pwd)"
 
-# link every dotfile in dotfiles/ into the user's home directory
+# link every dotfile in dotfiles/, into the user's home directory
 # if a dotfile exists with that name, add the ".unused" extension
 for dotfile in $BUFFET_DIRECTORY/dotfiles/*; do
   original="$HOME/.${dotfile##*/}"
   [ ! -h "$original" ] && mv "$original" "$original.unused" 2> /dev/null
   ln -fs "$dotfile" "$original"
 done
-
-
 
 # VIM SETUP ===================================================================
 
@@ -54,7 +52,6 @@ if hash apm 2>/dev/null; then
     linter-jscs linter-rubocop linter-ruby merge-conflicts pigments pretty-json rails-rspec rspec \
     toggle-packages atomic-emacs
 fi
-
 
 # CLOSE UP SHOP ===============================================================
 
