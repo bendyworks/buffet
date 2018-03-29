@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+
+# source any homebrew-supplied autocompletion files
+comps_file='/usr/local/etc/bash_completion'
+OS="`uname`"
+case $OS in
+  "Linux")
+    ;;
+  "Darwin")
+    if [ -f $(brew --prefix)/etc/bash_completion ]; then
+      . $(brew --prefix)/etc/bash_completion
+    fi
+    ;;
+esac

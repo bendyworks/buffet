@@ -26,7 +26,7 @@ possibly overwriting old configurations.
 [Vundle][1] DSL syntax for managing Vim plugins. Otherwise, all dotfiles belong
 to their respective programs.
 
-  [1]: https://github.com/gmarik/Vundle.vim
+[1]: https://github.com/gmarik/Vundle.vim
 
 ## Local Overrides
 
@@ -36,6 +36,10 @@ set on a per-user basis by adding the following files to your home directory:
 - `.bashrc.local` to override terminal settings
 - `.vimrc.local` to override Vim settings
 - `.vundle.local` to load additional plugins in Vim
+
+## Extras
+
+There are sample dotfile and configuration snippets located in this folder. These are not included in the default setup for various reasons, including features that require additional software installation or they may be experimental in nature or otherwise non-standard in some way.
 
 ## Contributing
 
@@ -51,7 +55,7 @@ Otherwise, pull requests are always welcome!
 So many lines are cribbed from [Josh][2]'s dotfiles that I lost count. He is
 the workflow avatar.
 
-  [2]: https://github.com/losingkeys
+[2]: https://github.com/losingkeys
 
 ## License
 

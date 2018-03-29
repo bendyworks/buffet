@@ -1,27 +1,65 @@
 #!/usr/bin/env bash
+#   ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+#   ┃                                   ┃
+#   ┃   ____         __  __      _      ┃
+#   ┃  | __ ) _   _ / _|/ _| ___| |_    ┃
+#   ┃  |  _ \| | | | |_| |_ / _ \ __|   ┃
+#   ┃  | |_) | |_| |  _|  _|  __/ |_    ┃
+#   ┃  |____/ \__,_|_| |_|  \___|\__|   ┃
+#   ┃                                   ┃
+#   ┃        By Bendyworks - 2018       ┃
+#   ┃                                   ┃
+#   ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+#
+# FUNCTIONS ===================================================================
 
+source_if_exists() { if [ -f $1 ]; then . $1; eval $2; fi; }
+prepend_to_path() { if [ -d $1 ]; then export PATH="$1:$PATH"; fi; }
+append_to_path() { if [ -d $1 ]; then export PATH="$PATH:$1"; fi; }
 
-# HELPER FUNCTIONS ============================================================
+# create a directory and immediately move to that directory
+take() { mkdir -p $1; cd $1; }
 
-_source_if_exists() {
-  if [ -f $1 ]; then
-    . $1
-    eval $2
-  fi
+# Heroku Helper:
+# If the project folder is "FOO",
+# And the production heroku app is named "FOO-production",
+# then you can call:
+#
+#     prod heroku [cmd] [opts]
+#
+prod() {
+  $* --app $(basename $(pwd))-production
 }
 
-
-
 # VARIABLES ===================================================================
-
 # normalize the PATH stack
 export PATH='/usr/local/bin:/usr/local/sbin:/usr/bin:/usr/sbin:/bin:/sbin'
 
-# additional paths
-export PATH="$HOME/.buffet/bin:$PATH" # prepend Bendyworks bins
-export PATH="$HOME/.rvm/bin:$PATH"    # prepend RVM bins
+# Buffet bins
+prepend_to_path "$HOME/.buffet/bin"
 
-# set the default editor to Vim
+# Android SDK
+if [ -d "$HOME/Library/Android/sdk" ]; then
+  export ANDROID_HOME="$HOME/Library/Android/sdk"
+  prepend_to_path "$ANDROID_HOME/platform-tools"
+  prepend_to_path "$ANDROID_HOME/tools"
+fi
+
+# Node Version Manager
+if [ -d "$HOME/.nvm" ]; then
+  export NVM_DIR="$HOME/.nvm"
+  source_if_exists "$NVM_DIR/nvm.sh"
+fi
+
+# Ruby Version Manager
+if [ -d "$HOME/.rvm" ]; then
+  prepend_to_path "$HOME/.rvm/bin"
+  source_if_exists "$HOME/.rvm/scripts/rvm"
+fi
+
+# ENVIRONMENT VARIABLES =======================================================
+
+# set vim as the default editor
 export EDITOR=vim
 export VISUAL=vim
 
@@ -34,7 +72,7 @@ export GREP_OPTIONS='--exclude-dir=.svn --exclude-dir=.git --exclude-dir=tmp'
 # ALIASES =====================================================================
 
 # upwards directory navigation
-alias ..='cd ..'                # ':' is reserved in bash as equivalent to true
+alias ..='cd ..' # ':' is reserved in bash as equivalent to true
 alias ::='cd ../..'
 alias :::='cd ../../..'
 alias ::::='cd ../../../..'
@@ -49,13 +87,13 @@ alias r='rake'
 
 # override common tools with useful arguments
 alias grep='grep --color'
-alias ls='ls -FG'
 alias la='ls -lah'
+alias ls='ls -FG'
 alias psack='ps aux | grep'
 
 # Git aliases adopted by seemingly every dev shop
-alias gst='git status'
 alias gap='git add -p'
+alias gst='git status'
 
 # make Postgres not a huge PITA to start/stop
 alias pgup="pg_ctl -D $PG_DATA_DIR -l $PG_DATA_DIR/server.log start"
@@ -64,12 +102,16 @@ alias pgdown="pg_ctl -D $PG_DATA_DIR stop"
 # run a server in the current directory
 alias server='ruby -run -e httpd . -p 9090'
 
-# attach to the tmux session or create a new named after the user
+# attach to the tmux session or create a new session named after the user
 alias t='tmux attach-session -t "$(whoami)" || tmux new-session -s "$(whoami)"'
 
-# update all Vim plugins
+# update Vim plugins
 alias vundle='vim +PluginInstall! +qall'
 
+
+# AUTO-COMPLETION =============================================================
+source_if_exists "$BUFFET_DIRECTORY/bin/brew-auto-complete"
+source_if_exists "$BUFFET_DIRECTORY/bin/npm-auto-complete"
 
 # FUNCTIONS ===================================================================
 
@@ -113,67 +155,10 @@ if type __git_complete &>/dev/null; then
   __git_complete g __git_main
 fi
 
-###-begin-npm-completion-###
-#
-# npm command completion script
-#
-
-if type complete &>/dev/null; then
-  _npm_completion () {
-    local words cword
-    if type _get_comp_words_by_ref &>/dev/null; then
-      _get_comp_words_by_ref -n = -n @ -n : -w words -i cword
-    else
-      cword="$COMP_CWORD"
-      words=("${COMP_WORDS[@]}")
-    fi
-
-    local si="$IFS"
-    IFS=$'\n' COMPREPLY=($(COMP_CWORD="$cword" \
-                           COMP_LINE="$COMP_LINE" \
-                           COMP_POINT="$COMP_POINT" \
-                           npm completion -- "${words[@]}" \
-                           2>/dev/null)) || return $?
-    IFS="$si"
-    if type __ltrim_colon_completions &>/dev/null; then
-      __ltrim_colon_completions "${words[cword]}"
-    fi
-  }
-  complete -o default -F _npm_completion npm
-elif type compdef &>/dev/null; then
-  _npm_completion() {
-    local si=$IFS
-    compadd -- $(COMP_CWORD=$((CURRENT-1)) \
-                 COMP_LINE=$BUFFER \
-                 COMP_POINT=0 \
-                 npm completion -- "${words[@]}" \
-                 2>/dev/null)
-    IFS=$si
-  }
-  compdef _npm_completion npm
-elif type compctl &>/dev/null; then
-  _npm_completion () {
-    local cword line point words si
-    read -Ac words
-    read -cn cword
-    let cword-=1
-    read -l line
-    read -ln point
-    si="$IFS"
-    IFS=$'\n' reply=($(COMP_CWORD="$cword" \
-                       COMP_LINE="$line" \
-                       COMP_POINT="$point" \
-                       npm completion -- "${words[@]}" \
-                       2>/dev/null)) || return $?
-    IFS="$si"
-  }
-  compctl -K _npm_completion npm
-fi
-###-end-npm-completion-###
 
 # OTHER SOURCED FILES =========================================================
+source_if_exists "$HOME/.pair"            # "pair() shell function to set Git pairs"
+source_if_exists "$HOME/.bashrc.local"    # local .bashrc overrides
+source_if_exists "$HOME/.prompt"          # Bash prompt
 
-_source_if_exists "$HOME/.pair"            # "pair() shell function to set Git pairs"
-_source_if_exists "$HOME/.rvm/scripts/rvm" # required by RVM
-_source_if_exists "$HOME/.bashrc.local"    # local .bashrc overrides
-_source_if_exists "$HOME/.prompt"          # Bash prompt
+# EOF =========================================================================
