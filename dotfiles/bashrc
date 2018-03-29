@@ -108,9 +108,47 @@ alias t='tmux attach-session -t "$(whoami)" || tmux new-session -s "$(whoami)"'
 # update Vim plugins
 alias vundle='vim +PluginInstall! +qall'
 
+
 # AUTO-COMPLETION =============================================================
 source_if_exists "$BUFFET_DIRECTORY/bin/brew-auto-complete"
 source_if_exists "$BUFFET_DIRECTORY/bin/npm-auto-complete"
+
+# FUNCTIONS ===================================================================
+
+# creates a directory and then immediately moves you to that directory
+take() {
+  mkdir -p $1;
+  cd $1
+}
+
+# if you name your project folder "FOO" when your production heroku
+# application is named "FOO-production", then you can call:
+#
+#     prod heroku [cmd] [opts]
+#
+function prod() {
+  $* --app $(basename $(pwd))-production
+}
+
+yolo() {
+  brew update && brew outdated && brew upgrade && brew postgresql-upgrade-database || brew cleanup && brew prune
+}
+
+# AUTO-COMPLETES ==============================================================
+
+# source any homebrew-supplied autocompletion files
+comps_file='/usr/local/etc/bash_completion'
+
+OS="`uname`"
+case $OS in
+  "Linux")
+    ;;
+  "Darwin")
+    if [ -f `brew --prefix`/etc/bash_completion ]; then
+      . `brew --prefix`/etc/bash_completion
+    fi
+    ;;
+esac
 
 # use git autocompletion when "git" is aliased to "g"
 if type __git_complete &>/dev/null; then
