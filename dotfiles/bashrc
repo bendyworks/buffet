@@ -31,6 +31,9 @@ prod() {
   $* --app $(basename $(pwd))-production
 }
 
+yolo() {
+  brew update && brew outdated && brew upgrade && brew postgresql-upgrade-database || brew cleanup && brew prune
+}
 # VARIABLES ===================================================================
 # normalize the PATH stack
 export PATH='/usr/local/bin:/usr/local/sbin:/usr/bin:/usr/sbin:/bin:/sbin'
@@ -112,29 +115,6 @@ alias vundle='vim +PluginInstall! +qall'
 # AUTO-COMPLETION =============================================================
 source_if_exists "$BUFFET_DIRECTORY/bin/brew-auto-complete"
 source_if_exists "$BUFFET_DIRECTORY/bin/npm-auto-complete"
-
-# FUNCTIONS ===================================================================
-
-# creates a directory and then immediately moves you to that directory
-take() {
-  mkdir -p $1;
-  cd $1
-}
-
-# if you name your project folder "FOO" when your production heroku
-# application is named "FOO-production", then you can call:
-#
-#     prod heroku [cmd] [opts]
-#
-function prod() {
-  $* --app $(basename $(pwd))-production
-}
-
-yolo() {
-  brew update && brew outdated && brew upgrade && brew postgresql-upgrade-database || brew cleanup && brew prune
-}
-
-# AUTO-COMPLETES ==============================================================
 
 # source any homebrew-supplied autocompletion files
 comps_file='/usr/local/etc/bash_completion'
