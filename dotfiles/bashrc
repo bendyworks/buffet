@@ -31,7 +31,7 @@ prod() {
   $* --app $(basename $(pwd))-production
 }
 
-yolo() {
+brewyolo() {
   brew update && brew outdated && brew upgrade && brew postgresql-upgrade-database || brew cleanup && brew prune
 }
 # VARIABLES ===================================================================
