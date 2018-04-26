@@ -34,6 +34,11 @@ prod() {
 brewyolo() {
   brew update && brew outdated && brew upgrade && brew postgresql-upgrade-database || brew cleanup && brew prune
 }
+
+npmnuke() {
+  rm -rf node_modules && npm install
+}
+
 # VARIABLES ===================================================================
 # normalize the PATH stack
 export PATH='/usr/local/bin:/usr/local/sbin:/usr/bin:/usr/sbin:/bin:/sbin'
