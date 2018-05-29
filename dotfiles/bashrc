@@ -65,6 +65,11 @@ if [ -d "$HOME/.rvm" ]; then
   source_if_exists "$HOME/.rvm/scripts/rvm"
 fi
 
+# RBENV
+if hash rbenv 2>/dev/null; then
+  eval "$(rbenv init -)"
+fi
+
 # ENVIRONMENT VARIABLES =======================================================
 
 # set vim as the default editor
