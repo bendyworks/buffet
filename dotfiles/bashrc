@@ -145,6 +145,10 @@ if type __git_complete &>/dev/null; then
   __git_complete g __git_main
 fi
 
+# Vault
+if hash vault 2>/dev/null; then
+  complete -C /usr/local/bin/vault vault
+fi
 
 # OTHER SOURCED FILES =========================================================
 source_if_exists "$HOME/.pair"            # "pair() shell function to set Git pairs"
