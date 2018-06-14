@@ -1,0 +1,83 @@
+AllCops:
+  TargetRubyVersion: 2.5.1
+  Exclude:
+    - 'db/**/*'
+    - 'config/**/*'
+    - 'bin/**/*'
+    - 'node_modules/**/*'
+    - 'vendor/**/*'
+    - 'lib/**/*' # TODO: Remove
+    - 'script/**/*' # TODO: Remove
+    - 'spec/**/*' # TODO: Remove
+    - 'features/**/*' # TODO: Remove
+    - 'app/controllers/testing/**/*' # TODO: Remove
+
+Rails:
+  Enabled: true
+
+Style/ConditionalAssignment:
+  EnforcedStyle: assign_inside_condition
+  IncludeTernaryExpressions: false
+
+Style/Documentation:
+  Enabled: false
+
+Style/DocumentationMethod:
+  RequireForNonPublicMethods: false
+
+Style/FrozenStringLiteralComment:
+  EnforcedStyle: never
+
+Style/StringLiterals:
+  EnforcedStyle: single_quotes
+
+Metrics/BlockLength: # TODO: remove
+  Enabled: false
+
+Metrics/ClassLength: # TODO: remove?
+  Enabled: false
+
+Metrics/MethodLength: # TODO: remove
+  Enabled: false
+
+Metrics/AbcSize: # TODO: remove
+  Enabled: false
+
+Metrics/CyclomaticComplexity: # TODO: remove
+  Enabled: false
+
+Metrics/PerceivedComplexity: # TODO: remove
+  Enabled: false
+
+Metrics/ModuleLength: # TODO: remove
+  Enabled: false
+
+Metrics/LineLength:
+  Max: 120
+
+Metrics/ParameterLists:
+  Enabled: false
+
+Style/GuardClause:
+  Enabled: false
+
+Style/EmptyMethod:
+  EnforcedStyle: expanded
+
+Performance/Casecmp:
+  Enabled: false
+
+Style/ClassAndModuleChildren:
+  Enabled: false
+
+Style/RescueStandardError: # TODO: remove
+  Enabled: false
+
+Lint/LiteralInInterpolation: # TODO: remove
+  Enabled: false
+
+Style/FormatStringToken: # TODO: remove
+  Enabled: false
+
+Bundler/OrderedGems:
+  Enabled: false
