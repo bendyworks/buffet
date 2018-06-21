@@ -1,4 +1,5 @@
 AllCops:
+  DisplayStyleGuide: true
   TargetRubyVersion: 2.5.1 # overriden by .ruby-version
   Exclude:
     - 'db/**/*'
