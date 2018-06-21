@@ -27,19 +27,15 @@ Style/FrozenStringLiteralComment:
 Style/StringLiterals:
   EnforcedStyle: single_quotes
 
-Metrics/BlockLength: # TODO: remove
+Metrics/ClassLength:
   Enabled: false
 
-Metrics/ClassLength: # TODO: remove?
-  Enabled: false
+Metrics/MethodLength:
+  Enabled: true
+  Max: 20
 
-Metrics/MethodLength: # TODO: remove
-  Enabled: false
-
-Metrics/AbcSize: # TODO: remove
-  Enabled: false
-
-Metrics/CyclomaticComplexity: # TODO: remove
+# Too restrictive to leave in by default
+Metrics/AbcSize:
   Enabled: false
 
 Metrics/PerceivedComplexity: # TODO: remove
