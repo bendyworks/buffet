@@ -28,8 +28,13 @@ Style/FrozenStringLiteralComment:
 Style/StringLiterals:
   EnforcedStyle: single_quotes
 
+# Don't restrict class length too heavily, but don't let it get ridiculous
 Metrics/ClassLength:
-  Enabled: false
+  Max: 1500
+
+# Don't restrict module length too heavily, but don't let it get ridiculous
+Metrics/ModuleLength:
+  Max: 1500
 
 Metrics/MethodLength:
   Enabled: true
@@ -43,8 +48,6 @@ Metrics/PerceivedComplexity:
   Enabled: True
   Max: 10
 
-Metrics/ModuleLength:
-  Enabled: false
 
 Metrics/LineLength:
   Max: 120
