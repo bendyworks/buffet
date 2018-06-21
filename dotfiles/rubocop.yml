@@ -80,7 +80,7 @@ Style/RescueStandardError:
   Enabled: true
   EnforcedStyle: implicit
 
-Style/FormatStringToken: # TODO: remove
+Style/FormatStringToken:
   Enabled: false
 
 Bundler/OrderedGems:
