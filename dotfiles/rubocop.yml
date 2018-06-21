@@ -38,20 +38,22 @@ Metrics/MethodLength:
 Metrics/AbcSize:
   Enabled: false
 
-Metrics/PerceivedComplexity: # TODO: remove
-  Enabled: false
+Metrics/PerceivedComplexity:
+  Enabled: True
+  Max: 10
 
-Metrics/ModuleLength: # TODO: remove
+Metrics/ModuleLength:
   Enabled: false
 
 Metrics/LineLength:
   Max: 120
 
 Metrics/ParameterLists:
-  Enabled: false
+  Enabled: true
+  CountKeywordArgs: false
 
 Style/GuardClause:
-  Enabled: false
+  Enabled: true
 
 Style/EmptyMethod:
   EnforcedStyle: expanded
@@ -68,11 +70,9 @@ Performance/Casecmp:
 Style/ClassAndModuleChildren:
   Enabled: false
 
-Style/RescueStandardError: # TODO: remove
-  Enabled: false
-
-Lint/LiteralInInterpolation: # TODO: remove
-  Enabled: false
+Style/RescueStandardError:
+  Enabled: true
+  EnforcedStyle: implicit
 
 Style/FormatStringToken: # TODO: remove
   Enabled: false
