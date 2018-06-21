@@ -12,76 +12,104 @@ AllCops:
 Rails:
   Enabled: true
 
-Style/ConditionalAssignment:
-  EnforcedStyle: assign_inside_condition
-  IncludeTernaryExpressions: false
-
-Style/Documentation:
-  Enabled: false
-
-Style/DocumentationMethod:
-  RequireForNonPublicMethods: false
-
-Style/FrozenStringLiteralComment:
-  EnforcedStyle: never
-
-Style/StringLiterals:
-  EnforcedStyle: single_quotes
-
-# Don't restrict class length too heavily, but don't let it get ridiculous
-Metrics/ClassLength:
-  Max: 1500
-
-# Don't restrict module length too heavily, but don't let it get ridiculous
-Metrics/ModuleLength:
-  Max: 1500
-
-# Good Ruby style says that methods should be short,
-# but being overly restrictive encourages too much indirection
-Metrics/MethodLength:
-  Enabled: true
-  Max: 30
-
-# Too restrictive to leave in by default
-Metrics/AbcSize:
-  Enabled: false
-
-Metrics/PerceivedComplexity:
-  Enabled: True
-  Max: 10
-
+#
+# --- Highly Standard Settings ---
+#
 
 Metrics/LineLength:
   Max: 120
 
+# Documentation is important but shouldn't cause rubocop to fail unless we're working on (eg) a gem
+Style/Documentation:
+  Enabled: false
+
+# Documentation is important but shouldn't cause rubocop to fail unless we're working on (eg) a gem
+Style/DocumentationMethod:
+  RequireForNonPublicMethods: false
+
+# Class size should mainly be limited by SRP, but we can prevent it from getting excessive
+Metrics/ClassLength:
+  Max: 1500
+
+# Module size should mainly be limited by SRP, but we can prevent it from getting excessive
+Metrics/ModuleLength:
+  Max: 1500
+
+#
+# --- Opinionated Settings ---
+#
+
+Style/ConditionalAssignment:
+  EnforcedStyle: assign_inside_condition
+  IncludeTernaryExpressions: false
+
+# If running Ruby 2.3+ we should almost always do this
+# (note that this cop works with the --auto-correct flag)
+Style/FrozenStringLiteralComment:
+  EnforcedStyle: when_needed
+
+# We don't really care about speed that much, but single quotes are cleaner
+# *and* make it clear when a string can contain dynamic components
+Style/StringLiterals:
+  EnforcedStyle: single_quotes
+
+# Good Ruby style says that methods should be short, but being overly restrictive encourages too much indirection.
+# Still, it would be a good idea to tune this down for a greenfield project
+Metrics/MethodLength:
+  Enabled: true
+  Max: 30
+
+# Skip ABC checks since we're using PC and cyclomatic complexity
+Metrics/AbcSize:
+  Enabled: false
+
+# Restrict PC, but not too much
+Metrics/PerceivedComplexity:
+  Enabled: True
+  Max: 10
+
+# If your method has more than 5 params, it should probably be refactored
 Metrics/ParameterLists:
   Enabled: true
+  Max: 5
   CountKeywordArgs: false
 
+# Helps keep Gemfiles organized
+Bundler/OrderedGems:
+  Enabled: true
+  TreatCommentsAsGroupSeparators: true
+
+# Guard clauses make for cleaner code
 Style/GuardClause:
   Enabled: true
 
-Style/EmptyMethod:
-  EnforcedStyle: expanded
-
+# Array sigils are nice but should not be required (or prevented)
 Style/SymbolArray:
   Enabled: false
 
+# Array sigils are nice but should not be required (or prevented)
 Style/WordArray:
   Enabled: false
 
-Performance/Casecmp:
-  Enabled: false
-
-Style/ClassAndModuleChildren:
-  Enabled: false
-
+# Help prevent tricky exception hierarchy-related issues
 Style/RescueStandardError:
   Enabled: true
   EnforcedStyle: implicit
 
+# Compressed empty methods are un-idiomatic (and rare)
+Style/EmptyMethod:
+  EnforcedStyle: expanded
+
+# Class hierarchy varies from project to project
+# (but you should be consistent if possible)
+Style/ClassAndModuleChildren:
+  Enabled: false
+
+# Nobody uses string formatting tokens anyway
 Style/FormatStringToken:
   Enabled: false
 
-Bundler/OrderedGems:
+# Regular case comparison functions are more idiomatic
+# (though this should be enabled in a performance critical project)
+Performance/Casecmp:
   Enabled: false
