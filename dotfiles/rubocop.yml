@@ -36,9 +36,11 @@ Metrics/ClassLength:
 Metrics/ModuleLength:
   Max: 1500
 
+# Good Ruby style says that methods should be short,
+# but being overly restrictive encourages too much indirection
 Metrics/MethodLength:
   Enabled: true
-  Max: 20
+  Max: 30
 
 # Too restrictive to leave in by default
 Metrics/AbcSize:
