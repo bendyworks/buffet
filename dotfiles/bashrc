@@ -86,12 +86,17 @@ export GREP_OPTIONS='--exclude-dir=.svn --exclude-dir=.git --exclude-dir=tmp'
 
 # upwards directory navigation
 alias ..='cd ..' # ':' is reserved in bash as equivalent to true
+alias ...='cd ../..'
+alias ....='cd ../../..'
+alias .....='cd ../../../..'
+alias ......='cd ../../../../..'
 alias ::='cd ../..'
 alias :::='cd ../../..'
 alias ::::='cd ../../../..'
 alias :::::='cd ../../../../..'
 
 # shortcuts for the most commonly used tools
+alias b='bundle'
 alias be='bundle exec'
 alias v='vim'
 alias g='git'
@@ -145,7 +150,7 @@ if type __git_complete &>/dev/null; then
   __git_complete g __git_main
 fi
 
-# Vault
+# Vault autocompletion
 if hash vault 2>/dev/null; then
   complete -C /usr/local/bin/vault vault
 fi
