@@ -72,10 +72,9 @@ fi
 read -p "Install Atom Plugins (Y/n)? " answer
 [ -z "$answer" ] && answer="Y"
 
-# TODO: these take a long time. maybe it'd be better to only install a core set?
 if [ "$answer" != "${answer#[Yy]}" ] && hash apm 2>/dev/null; then
   echo '-- installing Atom plugins...'
-  apm install \
+  export BUFFET_APM_PACKAGES="\
     Sublime-Style-Column-Selection \
     atom-beautify \
     atom-bootstrap3 \
@@ -109,7 +108,14 @@ if [ "$answer" != "${answer#[Yy]}" ] && hash apm 2>/dev/null; then
     ruby-test \
     script \
     toggle-packages \
-    toggle-quotes
+    toggle-quotes"
+
+  export INSTALLED_PACKAGES=$(apm list --installed --bare | sed -e 's/@.*//g')
+
+  export PACKAGES_TO_INSTALL=$(comm -23 <(printf '%s\n' "${BUFFET_APM_PACKAGES[@]}" | tr " " "\n" | sort) <(printf '%s\n' "${INSTALLED_PACKAGES[@]}" | sort))
+
+  echo "Installing ${PACKAGES_TO_INSTALL}"
+  apm install
 
   # defaults to NO
   read -p "Install Vim Mode for Atom (y/N)? " answer
