@@ -16,20 +16,8 @@
 source_if_exists() { if [ -f $1 ]; then . $1; eval $2; fi; }
 prepend_to_path() { if [ -d $1 ]; then export PATH="$1:$PATH"; fi; }
 append_to_path() { if [ -d $1 ]; then export PATH="$PATH:$1"; fi; }
-
-prepend_relative_to_path() {
-  if [ -d $1 ]; then
-    dir=$(cd $1; pwd)
-    export PATH="$dir:$PATH"
-  fi
-}
-
-append_relative_to_path() {
-  if [ -d $1 ]; then
-    dir=$(cd $1; pwd)
-    export PATH="$PATH:$dir"
-  fi
-}
+resolve_and_prepend_to_path() { if [ -d $1 ]; then dir=$(cd $1; pwd); export PATH="$dir:$PATH"; fi; }
+resolve_and_append_to_path() { if [ -d $1 ]; then dir=$(cd $1; pwd); export PATH="$PATH:$dir"; fi; }
 
 # create a directory and immediately move to that directory
 take() { mkdir -p $1; cd $1; }
