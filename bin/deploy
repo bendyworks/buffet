@@ -40,6 +40,7 @@ if [ ! -d "$vundle_path" ]; then
   vim +PluginInstall +qall
 fi
 
+# TODO: these take a long time. maybe it'd be better to only install a core set?
 if hash apm 2>/dev/null; then
   echo '-- install Atom plugins...'
   apm install linter merge-conflicts script vim-mode-plus vim-surround atom-pair \
