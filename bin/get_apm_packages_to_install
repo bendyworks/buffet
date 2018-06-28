@@ -1,13 +1,12 @@
 #!/usr/bin/env ruby
 require 'set'
 
-# TODO: load from file or something less clunky
-BUFFET_APM_PACKAGES = %w{linter merge-conflicts script vim-mode-plus vim-surround atom-pair language-gherkin language-haml Sublime-Style-Column-Selection atom-typescript autocomplete-ruby highlight-selected language-rspec linter linter-js-yaml linter-rubocop markdown-scroll-sync merge-conflicts rails-rspec rails-transporter ruby-test toggle-quotes vim-mode-plus Sublime-Style-Column-Selection atom-beautify atom-bootstrap3 atom-jshint atom-material-syntax atom-material-ui autocomplete-ruby file-icons highlight-selected language-ampscript language-crontab language-gherkin linter linter-erb linter-htmlhint linter-js-yaml linter-jscs linter-rubocop linter-ruby merge-conflicts pigments pretty-json rails-rspec rspec toggle-packages atomic-emacs}
+buffet_atom_packages = File.read(File.join(__dir__, '..', 'extras', 'atom_packages.txt')).lines.map(&:strip).to_set
 
 installed_package_set = `apm list --bare apm list --installed --bare`.lines.map do |line|
   line.gsub(/@.*$/,'').strip
 end.to_set
 
-to_install_set = BUFFET_APM_PACKAGES.to_set - installed_package_set
+to_install_set = buffet_atom_packages - installed_package_set
 
 puts to_install_set.to_a.join(' ')
