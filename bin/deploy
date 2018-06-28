@@ -110,9 +110,11 @@ if [ "$answer" != "${answer#[Yy]}" ] && hash apm 2>/dev/null; then
     toggle-packages \
     toggle-quotes"
 
+  export PKGS_LIST=$BUFFET_APM_PACKAGES
+
   export INSTALLED_PACKAGES=$(apm list --installed --bare | sed -e 's/@.*//g')
 
-  export PACKAGES_TO_INSTALL=$(comm -23 <(printf '%s\n' "${BUFFET_APM_PACKAGES[@]}" | tr " " "\n" | sort) <(printf '%s\n' "${INSTALLED_PACKAGES[@]}" | sort))
+  export PACKAGES_TO_INSTALL=$(comm -23 <(printf '%s\n' "${PKGS_LIST}" | sort) <(printf '%s\n' "${INSTALLED_PACKAGES[@]}" | sort))
 
   echo "Installing ${PACKAGES_TO_INSTALL}"
   apm install
