@@ -10,25 +10,16 @@
 #   ┃        By Bendyworks - 2018       ┃
 #   ┃                                   ┃
 #   ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
-#
-# FUNCTIONS ===================================================================
+
 source_if_exists() { if [ -f $1 ]; then . $1; eval $2; fi; }
-source_if_exists "$HOME/.buffet/functions"
 
-# VARIABLES ===================================================================
-source_if_exists "$HOME/.buffet/path"
-source_if_exists "$HOME/.buffet/variables"
-
-# ALIASES =====================================================================
-source_if_exists "$HOME/.buffet/aliases"
-
-# AUTO-COMPLETION =============================================================
-source_if_exists "$HOME/.buffet/auto-complete"
-source_if_exists "$HOME/.buffet/npm-auto-complete"
-
-# OTHER SOURCED FILES =========================================================
-source_if_exists "$HOME/.pair"            # "pair() shell function to set Git pairs"
-source_if_exists "$HOME/.bashrc.local"    # local .bashrc overrides
-source_if_exists "$HOME/.prompt"          # Bash prompt
+source_if_exists "$HOME/.buffet/functions"     # helper functions
+source_if_exists "$HOME/.buffet/path"          # configure the PATH
+source_if_exists "$HOME/.buffet/variables"     # export environment variables
+source_if_exists "$HOME/.buffet/aliases"       # configure command aliases
+source_if_exists "$HOME/.buffet/auto-complete" # configure auto-completion utilities
+source_if_exists "$HOME/.pair"                 # "pair() shell function to set Git pairs"
+source_if_exists "$HOME/.bashrc.local"         # local .bashrc overrides
+source_if_exists "$HOME/.prompt"               # Bash prompt
 
 # EOF =========================================================================

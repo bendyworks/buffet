@@ -73,25 +73,63 @@ if [ ! -d "$vundle_path" ]; then
   vim +PluginInstall +qall
 fi
 
-
 # TODO: these take a long time. maybe it'd be better to only install a core set?
 if hash apm 2>/dev/null; then
-  read -t 3 -p "Install Atom Plugins (Y/n)? " answer
+  # Defaults to Yes
+  read -t 3 -p "Install Common Atom Plugins (Y/n)? " answer
   [ -z "$answer" ] && answer="Y"
-  echo
+
   if [ "$answer" != "${answer#[Yy]}" ] ;then
     echo '-- install Atom plugins...'
-    apm install linter script vim-mode-plus vim-surround atom-pair \
-      language-gherkin language-haml Sublime-Style-Column-Selection atom-typescript autocomplete-ruby \
-      highlight-selected language-rspec linter linter-js-yaml linter-rubocop markdown-scroll-sync \
-      merge-conflicts rails-rspec rails-transporter ruby-test toggle-quotes vim-mode-plus \
-      Sublime-Style-Column-Selection atom-beautify atom-bootstrap3 atom-jshint atom-material-syntax \
-      atom-material-ui autocomplete-ruby file-icons highlight-selected language-ampscript \
-      language-crontab language-gherkin linter linter-erb linter-htmlhint linter-js-yaml \
-      linter-jscs linter-rubocop linter-ruby merge-conflicts pigments pretty-json rails-rspec rspec \
-      toggle-packages atomic-emacs
-  else
-      echo "Skipping Atom Plugin Installation"
+    apm install \
+      Sublime-Style-Column-Selection \
+      atom-beautify \
+      atom-bootstrap3 \
+      atom-jshint \
+      atom-material-syntax \
+      atom-material-ui \
+      atom-pair \
+      atom-typescript \
+      autocomplete-ruby \
+      file-icons \
+      highlight-selected \
+      language-ampscript \
+      language-crontab \
+      language-gherkin \
+      language-haml \
+      language-rspec \
+      linter \
+      linter-erb \
+      linter-htmlhint \
+      linter-js-yaml \
+      linter-jscs \
+      linter-rubocop \
+      linter-ruby \
+      markdown-scroll-sync \
+      merge-conflicts \
+      pigments \
+      pretty-json \
+      rails-rspec \
+      rails-transporter \
+      rspec \
+      ruby-test \
+      script \
+      toggle-packages \
+      toggle-quotes
+  fi
+
+  # defaults to NO
+  read -t 3 -p "Install Vim Mode for Atom (y/n)? " answer
+  if [[ $answer =~ ^[Yy]$ ]]; then
+    apm install \
+      vim-mode-plus \
+      vim-surround
+  fi
+
+  # defaults to NO
+  read -t 3 -p "Install Emacs Keybindings for Atom (y/n)? " answer
+  if [[ $answer =~ ^[Yy]$ ]]; then
+    apm install atomic-emacs
   fi
 fi
 
