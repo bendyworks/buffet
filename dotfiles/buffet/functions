@@ -1,0 +1,57 @@
+#!/usr/bin/env bash
+
+prepend_to_path() { if [ -d $1 ]; then export PATH="$1:$PATH"; fi; }
+append_to_path() { if [ -d $1 ]; then export PATH="$PATH:$1"; fi; }
+resolve_and_prepend_to_path() { if [ -d $1 ]; then dir=$(cd $1; pwd); export PATH="$dir:$PATH"; fi; }
+resolve_and_append_to_path() { if [ -d $1 ]; then dir=$(cd $1; pwd); export PATH="$PATH:$dir"; fi; }
+
+# create a directory and immediately move to that directory
+take() { mkdir -p $1; cd $1; }
+
+# Heroku Helper:
+# If the project folder is "FOO",
+# And the production heroku app is named "FOO-production",
+# then you can call:
+#
+#     prod heroku [cmd] [opts]
+#
+prod() {
+  $* --app $(basename $(pwd))-production
+}
+
+brewyolo() {
+  brew update && brew outdated && brew upgrade && brew postgresql-upgrade-database || brew cleanup && brew prune
+}
+
+# Nuke NPM Node Modules and reinstall
+npmnuke() {
+  rm -rf node_modules && npm install
+}
+
+# Determine size of a file or total size of a directory
+function fs() {
+  if du -b /dev/null > /dev/null 2>&1; then
+    local arg=-sbh;
+  else
+    local arg=-sh;
+  fi
+  if [[ -n "$@" ]]; then
+    du $arg -- "$@";
+  else
+    du $arg .[^.]* ./*;
+	fi;
+}
+
+# Determine whether an array contains a string
+function contains() {
+  local n=$#
+  local value=${!n}
+  for ((i=1;i < $#;i++)) {
+    if [ "${!i}" == "${value}" ]; then
+      echo "y"
+      return 0
+    fi
+  }
+  echo "n"
+  return 1
+}
