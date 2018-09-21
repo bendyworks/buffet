@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 set -u
-echo '-- serving Bendyworks...'
+echo '-- serving Bendyworks Buffet...'
 
 # DOTFILE LINKING =============================================================
 
@@ -23,6 +23,7 @@ function contains() {
   return 1
 }
 
+# sourcefiles and directories to ignore
 IGNORE_FILES=("." ".." ".git")
 
 # link every dotfile in dotfiles/ into the user's home directory
@@ -30,6 +31,7 @@ IGNORE_FILES=("." ".." ".git")
 for sourcefile in $BUFFET_DIRECTORY/dotfiles/{.*,*}; do
   filename="${sourcefile##*/}"
 
+  # Ignore certain files
   if [ $(contains "${IGNORE_FILES[@]}" "$filename") == "y" ]; then
     continue;
   fi
@@ -110,7 +112,7 @@ if [ "$answer" != "${answer#[Yy]}" ] && hash apm 2>/dev/null; then
     toggle-quotes
 
   # defaults to NO
-  read -p "Install Vim Mode for Atom (y/n)? " answer
+  read -p "Install Vim Mode for Atom (y/N)? " answer
   if [[ $answer =~ ^[Yy]$ ]]; then
     apm install \
       vim-mode-plus \
@@ -118,7 +120,7 @@ if [ "$answer" != "${answer#[Yy]}" ] && hash apm 2>/dev/null; then
   fi
 
   # defaults to NO
-  read -p "Install Emacs Keybindings for Atom (y/n)? " answer
+  read -p "Install Emacs Keybindings for Atom (y/N)? " answer
   if [[ $answer =~ ^[Yy]$ ]]; then
     apm install atomic-emacs
   fi
