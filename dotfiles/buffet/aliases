@@ -18,7 +18,7 @@ alias v='vim'
 alias gr='grunt'
 alias r='rake'
 
-# override common tools with useful argument
+# override common tools with useful arguments
 alias grep='grep --color'
 alias la='ls -lah'
 alias ll='ls -l'
