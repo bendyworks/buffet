@@ -28,48 +28,61 @@
   textconv = unzip -c -a
 
 [alias]
+  # status
+  st        = status
+  s         = status --short
+
   # commit-specific aliases
-  ci     = commit --verbose
-  amend  = commit --amend --reuse-message=HEAD
-  reauth = commit --amend --reset-author --reuse-message=HEAD
+  ci        = commit --verbose
+  amend     = commit --amend --reuse-message=HEAD
+  reauth    = commit --amend --reset-author --reuse-message=HEAD
+  undo      = reset --soft HEAD^
 
   # checkout-specific aliases
-  co     = checkout
-  cp     = checkout --patch
-  go     = !sh -c '[[ "$(git branch | grep -i $1 | wc -l)" -eq "1" ]] && git checkout "$(git branch | grep -i $1 | tr -d [:space:])" || echo "\\\"$1\\\" matches zero or multiple branches"' -
+  co        = checkout
+  cp        = checkout --patch
+  go        = !sh -c '[[ "$(git branch | grep -i $1 | wc -l)" -eq "1" ]] && git checkout "$(git branch | grep -i $1 | tr -d [:space:])" || echo "\\\"$1\\\" matches zero or multiple branches"' -
+  pr        = "!f() { git fetch -fu ${2:-$(git remote |grep ^upstream || echo origin)} refs/pull/$1/head:pr/$1 && git checkout pr/$1; }; f"
+  pr-clean  = "!git for-each-ref refs/heads/pr/* --format='%(refname)' | while read ref ; do branch=${ref#refs/heads/} ; git branch -D $branch ; done"
+  # for bitbucket/stash remotes
+  spr       = "!f() { git fetch -fu ${2:-$(git remote |grep ^upstream || echo origin)} refs/pull-requests/$1/from:pr/$1 && git checkout pr/$1; }; f" 
+
+  # branching
+  b         = branch
+  br        = for-each-ref --sort=-committerdate refs/heads/ --format='%(color:yellow)%(refname:short) %(color:bold green)%(committerdate:relative) %(color:blue)%(subject) %(color:magenta)%(authorname)%(color:reset)'
+  bra       = for-each-ref --sort=-committerdate --format='%(color:yellow)%(refname:short) %(color:bold green)%(committerdate:relative) %(color:blue)%(subject) %(color:magenta)%(authorname)%(color:reset)'
+  delete    = branch -D
 
   # merging
-  me     = merge
-  noff   = merge --no-edit --no-ff
+  me        = merge
+  noff      = merge --no-edit --no-ff
+
+  # everything else
+  ap        = add --patch
+  cleanup   = "!git branch --merged | grep  -v '\\*\\|master\\|dev' | xargs -n 1 git branch -d && git remote prune origin"
+  df        = diff -w
+  prune     = fetch --prune
+  put       = push origin HEAD --set-upstream
+  sha       = "!if [ -x \"$(command -v xclip)\" ]; then git rev-parse HEAD | tr -d [:space:] | xclip; elif [ -x \"$(command -v pbcopy)\" ]; then git rev-parse HEAD | tr -d [:space:] | pbcopy; fi"
+  staged    = diff --staged
+
+  stash-all = stash save --include-untracked
+
+  # show current git user
+  whoami    = var GIT_AUTHOR_IDENT
 
   # logging
-  l   = log --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold cyan)%aD%C(reset) %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(magenta)<%ce>%C(reset)'
-  lp  = log --patch
-  lg  = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
-
-  # https://www.jacobtomlinson.co.uk/quick%20tip/2016/01/18/pretty-git-logs-with-git-lg/
-  lg1 = !"git lg1-specific --all"
-  lg2 = !"git lg2-specific --all"
-  lg3 = !"git lg3-specific --all"
+  find = log --pretty=\"format:%Cgreen%H\n%s\n\n%b\" --name-status --grep
+  l    = log --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold cyan)%aD%C(reset) %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(magenta)<%ce>%C(reset)'
+  lp   = log --patch
+  lg   = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
+  lg1  = !"git lg1-specific --all"
+  lg2  = !"git lg2-specific --all"
+  lg3  = !"git lg3-specific --all"
   lg1-specific = log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(auto)%d%C(reset)'
   lg2-specific = log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold cyan)%aD%C(reset) %C(bold green)(%ar)%C(reset)%C(auto)%d%C(reset)%n''          %C(white)%s%C(reset) %C(dim white)- %an%C(reset)'
   lg3-specific = log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold cyan)%aD%C(reset) %C(bold green)(%ar)%C(reset) %C(bold cyan)(committed: %cD)%C(reset) %C(auto)%d%C(reset)%n''          %C(white)%s%C(reset)%n''          %C(dim white)- %an <%ae> %C(reset) %C(dim white)(committer: %cn <%ce>)%C(reset)'
-
-  # everything else
-  ap     = add --patch
-  b      = branch
-  br     = for-each-ref --sort=-committerdate refs/heads/ --format='%(color:yellow)%(refname:short) %(color:bold green)%(committerdate:relative) %(color:blue)%(subject) %(color:magenta)%(authorname)%(color:reset)'
-  bra    = for-each-ref --sort=-committerdate --format='%(color:yellow)%(refname:short) %(color:bold green)%(committerdate:relative) %(color:blue)%(subject) %(color:magenta)%(authorname)%(color:reset)'
-  df     = diff -w
-  put    = push origin HEAD --set-upstream
-  s      = status --short
-  sha    = "!if [ -x \"$(command -v xclip)\" ]; then git rev-parse HEAD | tr -d [:space:] | xclip; elif [ -x \"$(command -v pbcopy)\" ]; then git rev-parse HEAD | tr -d [:space:] | pbcopy; fi"
-  st     = status
-  staged = diff --staged
-  cleanup = "!git branch --merged | grep  -v '\\*\\|master\\|dev' | xargs -n 1 git branch -d && git remote prune origin"
-
-  # show current git user
-  whoami = var GIT_AUTHOR_IDENT
+  # https://www.jacobtomlinson.co.uk/quick%20tip/2016/01/18/pretty-git-logs-with-git-lg/
 
 [filter "lfs"]
   clean = git-lfs clean -- %f
