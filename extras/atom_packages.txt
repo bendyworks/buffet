@@ -22,7 +22,6 @@ linter-jscs
 linter-rubocop
 linter-ruby
 markdown-scroll-sync
-merge-conflicts
 pigments
 pretty-json
 rails-rspec
@@ -32,5 +31,3 @@ ruby-test
 script
 toggle-packages
 toggle-quotes
-vim-mode-plus
-vim-surround
