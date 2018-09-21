@@ -1,23 +1,51 @@
 #!/usr/bin/env bash
 
 set -u
-echo '-- serving Bendyworks buffet...'
+echo '-- serving Bendyworks Buffet...'
 
 # DOTFILE LINKING =============================================================
 
 # absolute path to the Buffet directory
 rel_path="$(dirname "$0")"
-
 cd "$rel_path/.."
-
 export BUFFET_DIRECTORY="$(pwd)"
 
-# link every dotfile in dotfiles/, into the user's home directory
+function contains() {
+  local n=$#
+  local value=${!n}
+  for ((i=1;i < $#;i++)) {
+    if [ "${!i}" == "${value}" ]; then
+      echo "y"
+      return 0
+    fi
+  }
+  echo "n"
+  return 1
+}
+
+# sourcefiles and directories to ignore
+IGNORE_FILES=("." ".." ".git")
+
+# link every dotfile in dotfiles/ into the user's home directory
 # if a dotfile exists with that name, add the ".unused" extension
-for dotfile in $BUFFET_DIRECTORY/dotfiles/*; do
-  original="$HOME/.${dotfile##*/}"
-  [ ! -h "$original" ] && mv "$original" "$original.unused" 2> /dev/null
-  ln -fs "$dotfile" "$original"
+for sourcefile in $BUFFET_DIRECTORY/dotfiles/{.*,*}; do
+  filename="${sourcefile##*/}"
+
+  # Ignore certain files
+  if [ $(contains "${IGNORE_FILES[@]}" "$filename") == "y" ]; then
+    continue;
+  fi
+
+  targetfile="$HOME/.$filename"
+
+  [ ! -h "$targetfile" ] && mv "$targetfile" "$targetfile.unused" 2> /dev/null
+
+  if [ -h "$targetfile" ] && [ -d "$targetfile" ]; then
+    echo "removing symlink: $targetfile"
+    rm $targetfile
+  fi
+
+  ln -fs "$sourcefile" "$targetfile"
 done
 
 # VIM SETUP ===================================================================
@@ -40,18 +68,62 @@ if [ ! -d "$vundle_path" ]; then
   vim +PluginInstall +qall
 fi
 
+# Defaults to Yes
+read -p "Install Atom Plugins (Y/n)? " answer
+[ -z "$answer" ] && answer="Y"
+
 # TODO: these take a long time. maybe it'd be better to only install a core set?
-if hash apm 2>/dev/null; then
-  echo '-- install Atom plugins...'
-  apm install linter merge-conflicts script vim-mode-plus vim-surround atom-pair \
-    language-gherkin language-haml Sublime-Style-Column-Selection atom-typescript autocomplete-ruby \
-    highlight-selected language-rspec linter linter-js-yaml linter-rubocop markdown-scroll-sync \
-    merge-conflicts rails-rspec rails-transporter ruby-test toggle-quotes vim-mode-plus \
-    Sublime-Style-Column-Selection atom-beautify atom-bootstrap3 atom-jshint atom-material-syntax \
-    atom-material-ui autocomplete-ruby file-icons highlight-selected language-ampscript \
-    language-crontab language-gherkin linter linter-erb linter-htmlhint linter-js-yaml \
-    linter-jscs linter-rubocop linter-ruby merge-conflicts pigments pretty-json rails-rspec rspec \
-    toggle-packages atomic-emacs
+if [ "$answer" != "${answer#[Yy]}" ] && hash apm 2>/dev/null; then
+  echo '-- installing Atom plugins...'
+  apm install \
+    Sublime-Style-Column-Selection \
+    atom-beautify \
+    atom-bootstrap3 \
+    atom-jshint \
+    atom-material-syntax \
+    atom-material-ui \
+    atom-pair \
+    atom-typescript \
+    autocomplete-ruby \
+    file-icons \
+    highlight-selected \
+    language-ampscript \
+    language-crontab \
+    language-gherkin \
+    language-haml \
+    language-rspec \
+    linter \
+    linter-erb \
+    linter-htmlhint \
+    linter-js-yaml \
+    linter-jscs \
+    linter-rubocop \
+    linter-ruby \
+    markdown-scroll-sync \
+    merge-conflicts \
+    pigments \
+    pretty-json \
+    rails-rspec \
+    rails-transporter \
+    rspec \
+    ruby-test \
+    script \
+    toggle-packages \
+    toggle-quotes
+
+  # defaults to NO
+  read -p "Install Vim Mode for Atom (y/N)? " answer
+  if [[ $answer =~ ^[Yy]$ ]]; then
+    apm install \
+      vim-mode-plus \
+      vim-surround
+  fi
+
+  # defaults to NO
+  read -p "Install Emacs Keybindings for Atom (y/N)? " answer
+  if [[ $answer =~ ^[Yy]$ ]]; then
+    apm install atomic-emacs
+  fi
 fi
 
 # CLOSE UP SHOP ===============================================================

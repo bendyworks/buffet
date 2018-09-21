@@ -1,0 +1,77 @@
+#!/usr/bin/env bash
+
+# upwards directory navigation
+alias ..='cd ..' # ':' is reserved in bash as equivalent to true
+alias ...='cd ../..'
+alias ....='cd ../../..'
+alias .....='cd ../../../..'
+alias ......='cd ../../../../..'
+alias ::='cd ../..'
+alias :::='cd ../../..'
+alias ::::='cd ../../../..'
+alias :::::='cd ../../../../..'
+
+# shortcuts for the most commonly used tools
+alias b='bundle'
+alias be='bundle exec'
+alias v='vim'
+alias gr='grunt'
+alias r='rake'
+
+# override common tools with useful arguments
+alias grep='grep --color'
+alias la='ls -lah'
+alias ls='ls -FG'
+alias psack='ps aux | grep'
+
+# Git aliases
+alias g='git'
+alias ga='git add'
+alias gap='git add -p'
+alias gb='git branch'
+alias gba='git branch -a'
+alias gc='git commit -v'
+alias gc!='git commit -v --amend'
+alias gca='git commit -v -a'
+alias gca!='git commit -v -a --amend'
+alias gco='git checkout'
+alias gcm='git checkout master'
+alias gcl='git config --list'
+alias gd='git diff'
+alias gdc='git diff --cached'
+alias gst='git status'
+alias gss='git status -s'
+alias gl='git pull'
+alias gup='git pull --rebase'
+alias gp='git push'
+
+# make Postgres not a huge PITA to start/stop
+alias pgup="pg_ctl -D $PG_DATA_DIR -l $PG_DATA_DIR/server.log start"
+alias pgdown="pg_ctl -D $PG_DATA_DIR stop"
+
+# run a server in the current directory
+alias server='ruby -run -e httpd . -p 9090'
+
+# attach to the tmux session or create a new session named after the user
+alias tmuxup='tmux attach-session -t "$(whoami)" || tmux new-session -s "$(whoami)"'
+
+# update Vim plugins
+alias vundle='vim +PluginInstall! +qall'
+
+# Show/hide hidden files in Finder
+alias show="defaults write com.apple.finder AppleShowAllFiles -bool true && killall Finder"
+alias hide="defaults write com.apple.finder AppleShowAllFiles -bool false && killall Finder"
+
+# Hide/show all desktop icons (useful when presenting)
+alias hidedesktop="defaults write com.apple.finder CreateDesktop -bool false && killall Finder"
+alias showdesktop="defaults write com.apple.finder CreateDesktop -bool true && killall Finder"
+
+alias path='echo $PATH | tr -s ":" "\n"'
+alias read_env='export $(grep -v "^#" .env | xargs -0)'
+
+alias chrome='/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome'
+alias canary='/Applications/Google\ Chrome\ Canary.app/Contents/MacOS/Google\ Chrome\ Canary'
+alias firefox='/Applications/Firefox.app/Contents/MacOS/firefox'
+
+# Show active network interfaces
+alias ifactive="ifconfig | pcregrep -M -o '^[^\t:]+:([^\n]|\n\t)*status: active'"
