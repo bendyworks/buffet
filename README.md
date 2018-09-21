@@ -57,6 +57,10 @@ the workflow avatar.
 
 [2]: https://github.com/losingkeys
 
+Additionally, content has also come from:
+
+[3]: https://github.com/mathiasbynens/dotfiles
+
 ## License
 
 See the `LICENSE` file.
