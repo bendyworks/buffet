@@ -68,48 +68,19 @@ if [ ! -d "$vundle_path" ]; then
   vim +PluginInstall +qall
 fi
 
-# Defaults to Yes
 read -p "Install Atom Plugins (Y/n)? " answer
 [ -z "$answer" ] && answer="Y"
 
-# TODO: these take a long time. maybe it'd be better to only install a core set?
 if [ "$answer" != "${answer#[Yy]}" ] && hash apm 2>/dev/null; then
-  echo '-- installing Atom plugins...'
-  apm install \
-    Sublime-Style-Column-Selection \
-    atom-beautify \
-    atom-bootstrap3 \
-    atom-jshint \
-    atom-material-syntax \
-    atom-material-ui \
-    atom-pair \
-    atom-typescript \
-    autocomplete-ruby \
-    file-icons \
-    highlight-selected \
-    language-ampscript \
-    language-crontab \
-    language-gherkin \
-    language-haml \
-    language-rspec \
-    linter \
-    linter-erb \
-    linter-htmlhint \
-    linter-js-yaml \
-    linter-jscs \
-    linter-rubocop \
-    linter-ruby \
-    markdown-scroll-sync \
-    merge-conflicts \
-    pigments \
-    pretty-json \
-    rails-rspec \
-    rails-transporter \
-    rspec \
-    ruby-test \
-    script \
-    toggle-packages \
-    toggle-quotes
+  echo '-- getting list of Atom packages to install...'
+  export PACKAGES_TO_INSTALL=$(./bin/get_apm_packages_to_install)
+
+  if [ -z "$PACKAGES_TO_INSTALL" ]; then
+    echo "-- no Atom packages to install"
+  else
+    echo "-- installing Atom packages: ${PACKAGES_TO_INSTALL}"
+    apm install $PACKAGES_TO_INSTALL
+  fi
 
   # defaults to NO
   read -p "Install Vim Mode for Atom (y/N)? " answer

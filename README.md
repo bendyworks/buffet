@@ -9,6 +9,7 @@ These configurations assume up-to-date versions of the following tools:
 - Vim
 - Git
 - Tmux
+- Ruby
 
 ## Usage
 
@@ -27,6 +28,11 @@ possibly overwriting old configurations.
 to their respective programs.
 
 [1]: https://github.com/gmarik/Vundle.vim
+
+
+
+**Note:** The script to install Atom packages relies on ruby. Please have this configured on your system prior to running `deploy`
+
 
 ## Local Overrides
 
