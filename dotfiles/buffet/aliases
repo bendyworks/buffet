@@ -21,6 +21,7 @@ alias r='rake'
 # override common tools with useful arguments
 alias grep='grep --color'
 alias la='ls -lah'
+alias ll='ls -l'
 alias ls='ls -FG'
 alias psack='ps aux | grep'
 
