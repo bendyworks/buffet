@@ -1,6 +1,16 @@
 #!/usr/bin/env bash
 
-# upwards directory navigation
+# GENERAL SHELL ====================================================================================
+
+# Reload the shell (i.e. invoke as a login shell)
+alias reload="exec ${SHELL} -l"
+# output path entries on separate lines
+alias path='echo $PATH | tr -s ":" "\n"'
+# export each item in a .env file
+alias read_env='export $(grep -v "^#" .env | xargs -0)'
+
+# NAVIGATION =======================================================================================
+
 alias ..='cd ..' # ':' is reserved in bash as equivalent to true
 alias ...='cd ../..'
 alias ....='cd ../../..'
@@ -10,6 +20,8 @@ alias ::='cd ../..'
 alias :::='cd ../../..'
 alias ::::='cd ../../../..'
 alias :::::='cd ../../../../..'
+
+# COMMON ===========================================================================================
 
 # shortcuts for the most commonly used tools
 alias b='bundle'
@@ -23,9 +35,11 @@ alias grep='grep --color'
 alias la='ls -lah'
 alias ll='ls -l'
 alias ls='ls -FG'
+alias lsd="ls -lF | grep --color=never '^d'"
 alias psack='ps aux | grep'
 
-# Git aliases
+# GIT ==============================================================================================
+
 alias g='git'
 alias ga='git add'
 alias gap='git add -p'
@@ -46,6 +60,8 @@ alias gl='git pull'
 alias gup='git pull --rebase'
 alias gp='git push'
 
+# DEVELOPMENT ======================================================================================
+
 # make Postgres not a huge PITA to start/stop
 alias pgup="pg_ctl -D $PG_DATA_DIR -l $PG_DATA_DIR/server.log start"
 alias pgdown="pg_ctl -D $PG_DATA_DIR stop"
@@ -59,6 +75,8 @@ alias tmuxup='tmux attach-session -t "$(whoami)" || tmux new-session -s "$(whoam
 # update Vim plugins
 alias vundle='vim +PluginInstall! +qall'
 
+# MAC SPECIFIC =====================================================================================
+
 # Show/hide hidden files in Finder
 alias show="defaults write com.apple.finder AppleShowAllFiles -bool true && killall Finder"
 alias hide="defaults write com.apple.finder AppleShowAllFiles -bool false && killall Finder"
@@ -67,12 +85,21 @@ alias hide="defaults write com.apple.finder AppleShowAllFiles -bool false && kil
 alias hidedesktop="defaults write com.apple.finder CreateDesktop -bool false && killall Finder"
 alias showdesktop="defaults write com.apple.finder CreateDesktop -bool true && killall Finder"
 
-alias path='echo $PATH | tr -s ":" "\n"'
-alias read_env='export $(grep -v "^#" .env | xargs -0)'
+# APP ALIASES ======================================================================================
 
 alias chrome='/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome'
 alias canary='/Applications/Google\ Chrome\ Canary.app/Contents/MacOS/Google\ Chrome\ Canary'
 alias firefox='/Applications/Firefox.app/Contents/MacOS/firefox'
 
+# NETWORKING =======================================================================================
+
 # Show active network interfaces
 alias ifactive="ifconfig | pcregrep -M -o '^[^\t:]+:([^\n]|\n\t)*status: active'"
+# External IP Address
+alias ip="dig +short myip.opendns.com @resolver1.opendns.com"
+# Local IP Address
+alias localip="ipconfig getifaddr en0"
+# IP Addresses
+alias ips="ifconfig -a | grep -o 'inet6\? \(addr:\)\?\s\?\(\(\([0-9]\+\.\)\{3\}[0-9]\+\)\|[a-fA-F0-9:]\+\)' | awk '{ sub(/inet6? (addr:)? ?/, \"\"); print }'"
+
+# EOF ==============================================================================================
