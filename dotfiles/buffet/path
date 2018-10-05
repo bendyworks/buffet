@@ -1,5 +1,10 @@
 #!/usr/bin/env bash
 
+append_to_path() { if [ -d $1 ]; then export PATH="$PATH:$1"; fi; }
+prepend_to_path() { if [ -d $1 ]; then export PATH="$1:$PATH"; fi; }
+resolve_and_append_to_path() { if [ -d $1 ]; then dir=$(cd $1; pwd); export PATH="$PATH:$dir"; fi; }
+resolve_and_prepend_to_path() { if [ -d $1 ]; then dir=$(cd $1; pwd); export PATH="$dir:$PATH"; fi; }
+
 # normalize the PATH stack
 export PATH='/usr/local/bin:/usr/local/sbin:/usr/bin:/usr/sbin:/bin:/sbin'
 

@@ -13,9 +13,12 @@
 
 source_if_exists() { if [ -f $1 ]; then . $1; eval $2; fi; }
 
-source_if_exists "$HOME/.buffet/functions"     # helper functions
 source_if_exists "$HOME/.buffet/path"          # configure the PATH
 source_if_exists "$HOME/.buffet/variables"     # export environment variables
+source_if_exists "$HOME/.buffet/functions"     # helper functions
+
+[[ `uname -s` == "Darwin" ]] && source_if_exists "$HOME/.buffet/osx"
+
 source_if_exists "$HOME/.buffet/aliases"       # configure command aliases
 source_if_exists "$HOME/.buffet/auto-complete" # configure auto-completion utilities
 source_if_exists "$HOME/.pair"                 # "pair() shell function to set Git pairs"
