@@ -1,17 +1,11 @@
 #!/usr/bin/env bash
 
-# source any homebrew-supplied autocompletion files
-comps_file='/usr/local/etc/bash_completion'
-OS="`uname`"
-case $OS in
-  "Linux")
-    ;;
-  "Darwin")
-    if [ -f `brew --prefix`/etc/bash_completion ]; then
-      . `brew --prefix`/etc/bash_completion
-    fi
-    ;;
-esac
+# include tab completion for bash commands
+if [[ `uname -s` == "Darwin" ]] && which brew &> /dev/null; then
+  source_if_exists `brew --prefix`/etc/bash_completion
+else # Linux
+  source_if_exists /etc/bash_completion
+fi
 
 # use git autocompletion when "git" is aliased to "g"
 if type __git_complete &>/dev/null; then
