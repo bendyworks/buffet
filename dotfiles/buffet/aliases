@@ -91,6 +91,9 @@ alias tmuxup='tmux attach-session -t "$(whoami)" || tmux new-session -s "$(whoam
 # update Vim plugins
 alias vundle='vim +PluginInstall! +qall'
 
+# URL-encode strings
+alias urlencode='python -c "import sys, urllib as ul; print ul.quote_plus(sys.argv[1]);"'
+
 # NETWORKING =======================================================================================
 
 # Show active network interfaces
