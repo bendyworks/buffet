@@ -65,7 +65,8 @@ the workflow avatar.
 
 Additionally, content has also come from:
 
-[3]: https://github.com/mathiasbynens/dotfiles
+https://github.com/mathiasbynens/dotfiles
+https://github.com/thoughtbot/dotfiles/blob/master/gitconfig
 
 ## License
 
