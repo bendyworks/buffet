@@ -1,13 +1,6 @@
 AllCops:
   DisplayStyleGuide: true
   TargetRubyVersion: 2.5 # overriden by .ruby-version
-  Exclude:
-    - 'db/**/*'
-    - 'config/**/*'
-    - 'bin/**/*'
-    - 'node_modules/**/*'
-    - 'vendor/**/*'
-    - 'script/**/*'
 
 Rails:
   Enabled: true
