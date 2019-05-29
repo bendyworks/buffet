@@ -2,9 +2,6 @@ AllCops:
   DisplayStyleGuide: true
   TargetRubyVersion: 2.5 # overriden by .ruby-version
 
-Rails:
-  Enabled: true
-
 #
 # --- Highly Standard Settings ---
 #
@@ -39,7 +36,7 @@ Style/ConditionalAssignment:
 # If running Ruby 2.3+ we should almost always do this
 # (note that this cop works with the --auto-correct flag)
 Style/FrozenStringLiteralComment:
-  EnforcedStyle: when_needed
+  EnforcedStyle: always
 
 # We don't really care about speed that much, but single quotes are cleaner
 # *and* make it clear when a string can contain dynamic components
@@ -100,9 +97,4 @@ Style/ClassAndModuleChildren:
 
 # Nobody uses string formatting tokens anyway
 Style/FormatStringToken:
-  Enabled: false
-
-# Regular case comparison functions are more idiomatic
-# (though this should be enabled in a performance critical project)
-Performance/Casecmp:
   Enabled: false
