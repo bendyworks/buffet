@@ -26,3 +26,4 @@ source_if_exists "$HOME/.bashrc.local"         # local .bashrc overrides
 source_if_exists "$HOME/.prompt"               # Bash prompt
 
 # EOF =========================================================================
+if [ -f $(brew --prefix)/etc/bash_completion ]; then source $(brew --prefix)/etc/bash_completion; fi
