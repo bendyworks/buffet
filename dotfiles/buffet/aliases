@@ -16,6 +16,9 @@ alias path='echo $PATH | tr -s ":" "\n"'
 # export each item in a .env file
 alias read_env='export $(grep -v "^#" .env | xargs -0)'
 
+alias now='date +"%T"'
+alias nowdate='date +"%d-%m-%Y"'
+
 # NAVIGATION =======================================================================================
 
 alias ..='cd ..' # ':' is reserved in bash as equivalent to true
@@ -33,18 +36,19 @@ alias :::::='cd ../../../../..'
 # Shortcuts
 alias b='bundle'
 alias be='bundle exec'
-alias v='vim'
 alias gr='grunt'
 alias r='rake'
+alias v='vim'
 
 # LIST
+alias ls="ls -F ${colorflag}"
+alias ls="command ls ${colorflag}"                        # Always use color output for `ls`
 alias l="ls -lF ${colorflag}"                             # List all files colorized in long format
 alias laf="ls -lAF ${colorflag}"                          # List all files colorized in long format, excluding . and ..
-alias ls="command ls ${colorflag}"                        # Always use color output for `ls`
-alias la="ls -lah ${colorflag}"                           # long format with suffixes, with hidden files
-alias ll="ls -l ${colorflag}"                             # long format
+alias la="ls -lah ${colorflag}"                           # List all files in long format with suffixes, with hidden files
+alias ll="ls -l ${colorflag}"                             # List all files in long format
 alias lsd="ls -lF ${colorflag} | grep --color=never '^d'" # List only directories
-alias ls="ls -FG ${colorflag}"
+alias l.="ls -d .* ${colorflag}"                          # List only hidden files
 
 # GREP
 # Always enable colored `grep` output
