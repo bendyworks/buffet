@@ -20,7 +20,7 @@ prod() {
 }
 
 brewyolo() {
-  brew update && brew outdated && brew upgrade && brew postgresql-upgrade-database || brew cleanup && brew prune
+  brew update && brew outdated && brew upgrade && brew postgresql-upgrade-database || brew cleanup
 }
 
 # Nuke NPM Node Modules and reinstall
