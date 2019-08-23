@@ -6,6 +6,3 @@ export VISUAL=vim
 
 # not used by any program, but nice to reference
 export PG_DATA_DIR='/usr/local/var/postgres'
-
-# ignore common large directories in grep
-export GREP_OPTIONS='--exclude-dir=.svn --exclude-dir=.git --exclude-dir=tmp'
