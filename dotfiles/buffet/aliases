@@ -31,7 +31,7 @@ alias gr='grunt'
 alias r='rake'
 
 # override common tools with useful arguments
-alias grep='grep --color'
+alias grep='grep --color --exclude-dir=.svn --exclude-dir=.git --exclude-dir=tmp'
 alias la='ls -lah'
 alias ll='ls -l'
 alias ls='ls -FG'
