@@ -3,101 +3,11 @@
 set -u
 echo '-- serving Bendyworks Buffet...'
 
-# DOTFILE LINKING =============================================================
+curr_dir="$(dirname "$0")"
 
-# absolute path to the Buffet directory
-rel_path="$(dirname "$0")"
-cd "$rel_path/.."
-export BUFFET_DIRECTORY="$(pwd)"
-
-function contains() {
-  local n=$#
-  local value=${!n}
-  for ((i=1;i < $#;i++)) {
-    if [ "${!i}" == "${value}" ]; then
-      echo "y"
-      return 0
-    fi
-  }
-  echo "n"
-  return 1
-}
-
-# sourcefiles and directories to ignore
-IGNORE_FILES=("." ".." ".git")
-
-# link every dotfile in dotfiles/ into the user's home directory
-# if a dotfile exists with that name, add the ".unused" extension
-for sourcefile in $BUFFET_DIRECTORY/dotfiles/{.*,*}; do
-  filename="${sourcefile##*/}"
-
-  # Ignore certain files
-  if [ $(contains "${IGNORE_FILES[@]}" "$filename") == "y" ]; then
-    continue;
-  fi
-
-  targetfile="$HOME/.$filename"
-
-  [ ! -h "$targetfile" ] && mv "$targetfile" "$targetfile.unused" 2> /dev/null
-
-  if [ -h "$targetfile" ] && [ -d "$targetfile" ]; then
-    echo "removing symlink: $targetfile"
-    rm $targetfile
-  fi
-
-  ln -fs "$sourcefile" "$targetfile"
-done
-
-# VIM SETUP ===================================================================
-
-# set backup directories so that .swp files don't litter the workspace
-vim_dir="$HOME/.vim"
-mkdir -p "$vim_dir/backup"
-mkdir -p "$vim_dir/swp"
-mkdir -p "$vim_dir/undo"
-
-# install vundle to ease installing Vim plugins
-vundle_dir="$vim_dir/bundle"
-vundle_path="$vundle_dir/Vundle.vim"
-vundle_repo='https://github.com/VundleVim/Vundle.vim.git'
-
-mkdir -p "$vundle_dir"
-if [ ! -d "$vundle_path" ]; then
-  echo '-- installing Vim plugins...'
-  git clone "$vundle_repo" "$vundle_path"
-  vim +PluginInstall +qall
-fi
-
-read -p "Install Atom Plugins (Y/n)? " answer
-[ -z "$answer" ] && answer="Y"
-
-if [ "$answer" != "${answer#[Yy]}" ] && hash apm 2>/dev/null; then
-  echo '-- getting list of Atom packages to install...'
-  export PACKAGES_TO_INSTALL=$(./bin/get_apm_packages_to_install)
-
-  if [ -z "$PACKAGES_TO_INSTALL" ]; then
-    echo "-- no Atom packages to install"
-  else
-    echo "-- installing Atom packages: ${PACKAGES_TO_INSTALL}"
-    apm install $PACKAGES_TO_INSTALL
-  fi
-
-  # defaults to NO
-  read -p "Install Vim Mode for Atom (y/N)? " answer
-  if [[ $answer =~ ^[Yy]$ ]]; then
-    apm install \
-      vim-mode-plus \
-      vim-surround
-  fi
-
-  # defaults to NO
-  read -p "Install Emacs Keybindings for Atom (y/N)? " answer
-  if [[ $answer =~ ^[Yy]$ ]]; then
-    apm install atomic-emacs
-  fi
-fi
-
-# CLOSE UP SHOP ===============================================================
+source "$curr_dir/setup_dotfiles"
+source "$curr_dir/setup_vim"
+source "$curr_dir/setup_atom"
 
 echo '-- your buffet has been served!'
 set +u

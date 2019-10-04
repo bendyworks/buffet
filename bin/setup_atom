@@ -1,0 +1,30 @@
+#!/usr/bin/env bash
+
+read -p "Install Atom Plugins (Y/n)? " answer
+[ -z "$answer" ] && answer="Y"
+
+if [ "$answer" != "${answer#[Yy]}" ] && hash apm 2>/dev/null; then
+  echo '-- getting list of Atom packages to install...'
+  export PACKAGES_TO_INSTALL=$(./bin/get_apm_packages_to_install)
+
+  if [ -z "$PACKAGES_TO_INSTALL" ]; then
+    echo "-- no Atom packages to install"
+  else
+    echo "-- installing Atom packages: ${PACKAGES_TO_INSTALL}"
+    apm install $PACKAGES_TO_INSTALL
+  fi
+
+  # defaults to NO
+  read -p "Install Vim Mode for Atom (y/N)? " answer
+  if [[ $answer =~ ^[Yy]$ ]]; then
+    apm install \
+      vim-mode-plus \
+      vim-surround
+  fi
+
+  # defaults to NO
+  read -p "Install Emacs Keybindings for Atom (y/N)? " answer
+  if [[ $answer =~ ^[Yy]$ ]]; then
+    apm install atomic-emacs
+  fi
+fi
