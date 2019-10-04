@@ -2,14 +2,6 @@
 
 # MAC SPECIFIC FUNCTIONS ===========================================================================
 
-brewyolo() {
-  brew update && \
-  brew outdated && \
-  brew upgrade && \
-  brew postgresql-upgrade-database || brew cleanup && \
-  brew prune
-}
-
 # MAC SPECIFIC ALIASES =============================================================================
 
 alias dns-flush="sudo killall -HUP mDNSResponder"

@@ -9,6 +9,13 @@ prod() { $* --app $(basename $(pwd))-production; }
 # Nuke NPM Node Modules and reinstall
 npmnuke() { rm -rf node_modules && npm install; }
 
+brewyolo() {
+  brew update && \
+  brew outdated && \
+  brew upgrade && \
+  brew postgresql-upgrade-database || brew cleanup
+}
+
 # Determine size of a file or total size of a directory
 function fs() {
   if du -b /dev/null > /dev/null 2>&1; then
