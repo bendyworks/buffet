@@ -19,6 +19,10 @@ source_if_exists "$HOME/.buffet/functions"     # helper functions
 
 [[ `uname -s` == "Darwin" ]] && source_if_exists "$HOME/.buffet/osx"
 
+if grep -q Microsoft /proc/version; then
+  source_if_exists "$HOME/.buffet/windows"
+fi
+
 source_if_exists "$HOME/.buffet/aliases"       # configure command aliases
 source_if_exists "$HOME/.buffet/auto-complete" # configure auto-completion utilities
 source_if_exists "$HOME/.pair"                 # "pair() shell function to set Git pairs"
