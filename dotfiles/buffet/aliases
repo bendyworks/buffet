@@ -9,12 +9,13 @@ fi
 
 # GENERAL SHELL ====================================================================================
 
-# Reload the shell (i.e. invoke as a login shell)
-alias reload="exec ${SHELL} -l"
+alias reload="source ~/.bash_profile"
+
 # output path entries on separate lines
 alias path='echo $PATH | tr -s ":" "\n"'
+
 # export each item in a .env file
-alias read_env='export $(grep -v "^#" .env | xargs -0)'
+alias readenv='export $(grep -v "^#" .env | xargs -0)'
 
 alias now='date +"%T"'
 alias nowdate='date +"%d-%m-%Y"'

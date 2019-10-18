@@ -1,0 +1,46 @@
+#!/usr/bin/env bash
+
+# DOTFILE LINKING =============================================================
+
+# absolute path to the Buffet directory
+rel_path="$(dirname "$0")"
+cd "$rel_path/.."
+export BUFFET_DIRECTORY="$(pwd)"
+
+function contains() {
+  local n=$#
+  local value=${!n}
+  for ((i=1;i < $#;i++)) {
+    if [ "${!i}" == "${value}" ]; then
+      echo "y"
+      return 0
+    fi
+  }
+  echo "n"
+  return 1
+}
+
+# sourcefiles and directories to ignore
+IGNORE_FILES=("." ".." ".git")
+
+# link every dotfile in dotfiles/ into the user's home directory
+# if a dotfile exists with that name, add the ".unused" extension
+for sourcefile in $BUFFET_DIRECTORY/dotfiles/{.*,*}; do
+  filename="${sourcefile##*/}"
+
+  # Ignore certain files
+  if [ $(contains "${IGNORE_FILES[@]}" "$filename") == "y" ]; then
+    continue;
+  fi
+
+  targetfile="$HOME/.$filename"
+
+  [ ! -h "$targetfile" ] && mv "$targetfile" "$targetfile.unused" 2> /dev/null
+
+  if [ -h "$targetfile" ] && [ -d "$targetfile" ]; then
+    echo "removing symlink: $targetfile"
+    rm $targetfile
+  fi
+
+  ln -fs "$sourcefile" "$targetfile"
+done

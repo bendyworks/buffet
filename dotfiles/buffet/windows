@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+
+{
+  WINDOWS_USER=$(/mnt/c/Windows/System32/cmd.exe /c 'echo %USERNAME%' | sed -e 's/\r//g')
+} &> /dev/null
+export WINHOME="/mnt/c/Users/$WINDOWS_USER"
