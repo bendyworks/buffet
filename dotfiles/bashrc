@@ -19,7 +19,7 @@ source_if_exists "$HOME/.buffet/functions"     # helper functions
 
 [[ `uname -s` == "Darwin" ]] && source_if_exists "$HOME/.buffet/osx"
 
-if grep -q Microsoft /proc/version; then
+if grep --quiet --no-messages Microsoft /proc/version; then
   source_if_exists "$HOME/.buffet/windows"
 fi
 
@@ -30,4 +30,4 @@ source_if_exists "$HOME/.bashrc.local"         # local .bashrc overrides
 source_if_exists "$HOME/.prompt"               # Bash prompt
 
 # EOF =========================================================================
-if which brew && [ -f $(brew --prefix)/etc/bash_completion ]; then source $(brew --prefix)/etc/bash_completion; fi
+if which -s brew && [ -f $(brew --prefix)/etc/bash_completion ]; then source $(brew --prefix)/etc/bash_completion; fi
