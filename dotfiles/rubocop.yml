@@ -6,7 +6,7 @@ AllCops:
 # --- Highly Standard Settings ---
 #
 
-Metrics/LineLength:
+Layout/LineLength:
   Max: 120
 
 # Documentation is important but shouldn't cause rubocop to fail unless we're working on (eg) a gem
