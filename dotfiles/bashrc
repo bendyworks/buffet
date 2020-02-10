@@ -33,3 +33,8 @@ source_if_exists "$HOME/.prompt"               # Bash prompt
 if type brew &>/dev/null && [ -f $(brew --prefix)/etc/bash_completion ]; then
  source $(brew --prefix)/etc/bash_completion
 fi
+
+source_if_exists /usr/local/share/chruby/chruby.sh
+source_if_exists /usr/local/share/chruby/auto.sh
+
+source_if_exists "$HOME/.travis/travis.sh"
