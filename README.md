@@ -6,7 +6,6 @@ plethora of machines.
 
 These configurations assume up-to-date versions of the following tools:
 - Bash
-- Vim
 - Git
 - Tmux
 - Ruby
@@ -23,13 +22,9 @@ All files within `dotfiles/` are symlinked into your home directory. Any
 dotfiles that would be overwritten are moved to `[filename].unused`, to avoid
 possibly overwriting old configurations.
 
-`dotfiles/prompt` holds the Bash prompt styling, and `dotfiles/vundle` contains
-[Vundle][1] DSL syntax for managing Vim plugins. Otherwise, all dotfiles belong
-to their respective programs.
+* `dotfiles/prompt` holds the Bash prompt styling.
 
-[1]: https://github.com/gmarik/Vundle.vim
-
-
+Otherwise, all dotfiles belong to their respective programs.
 
 **Note:** The script to install Atom packages relies on ruby. Please have this configured on your system prior to running `deploy`
 
@@ -40,8 +35,6 @@ Local (preferably non-destructive) overrides for these configurations can be
 set on a per-user basis by adding the following files to your home directory:
 
 - `.bashrc.local` to override terminal settings
-- `.vimrc.local` to override Vim settings
-- `.vundle.local` to load additional plugins in Vim
 
 ## Extras
 

@@ -93,9 +93,6 @@ alias server='ruby -run -e httpd . -p 9090'
 # attach to the tmux session or create a new session named after the user
 alias tmuxup='tmux attach-session -t "$(whoami)" || tmux new-session -s "$(whoami)"'
 
-# update Vim plugins
-alias vundle='vim +PluginInstall! +qall'
-
 # URL-encode strings
 alias urlencode='python -c "import sys, urllib as ul; print ul.quote_plus(sys.argv[1]);"'
 
