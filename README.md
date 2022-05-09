@@ -26,9 +26,6 @@ possibly overwriting old configurations.
 
 Otherwise, all dotfiles belong to their respective programs.
 
-**Note:** The script to install Atom packages relies on ruby. Please have this configured on your system prior to running `deploy`
-
-
 ## Local Overrides
 
 Local (preferably non-destructive) overrides for these configurations can be

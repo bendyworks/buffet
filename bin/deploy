@@ -6,7 +6,6 @@ echo '-- serving Bendyworks Buffet...'
 curr_dir="$(dirname "$0")"
 
 source "$curr_dir/setup_dotfiles"
-source "$curr_dir/setup_atom"
 
 echo '-- your buffet has been served!'
 set +u
