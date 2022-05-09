@@ -33,9 +33,25 @@ set on a per-user basis by adding the following files to your home directory:
 
 - `.bashrc.local` to override terminal settings
 
-## Extras
+## Oh-My-ZSH
 
-There are sample dotfile and configuration snippets located in this folder. These are not included in the default setup for various reasons, including features that require additional software installation or they may be experimental in nature or otherwise non-standard in some way.
+https://github.com/ohmyzsh/ohmyzsh/wiki/Installing-ZSH
+
+Plugins:
+
+Git
+* [git](https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/git)
+* [git-auto-fetch](https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/git-auto-fetch)
+* [git-extras](https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/git-extras)
+  * [Commands](https://github.com/tj/git-extras/blob/master/Commands.md)
+* [gitignore](https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/gitignore)
+
+Ruby On Rails
+* [ruby](https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/ruby)
+* [rails](https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/rails)
+* [bundler](https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/bundler)
+* [postgres](https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/postgres)
+* [rake](https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/rake)
 
 ## Contributing
 

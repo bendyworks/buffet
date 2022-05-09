@@ -7,7 +7,7 @@
 #   ┃  | |_) | |_| |  _|  _|  __/ |_    ┃
 #   ┃  |____/ \__,_|_| |_|  \___|\__|   ┃
 #   ┃                                   ┃
-#   ┃        By Bendyworks - 2018       ┃
+#   ┃        By Bendyworks - 2022       ┃
 #   ┃                                   ┃
 #   ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
 
@@ -29,12 +29,6 @@ source_if_exists "$HOME/.pair"                 # "pair() shell function to set G
 source_if_exists "$HOME/.bashrc.local"         # local .bashrc overrides
 source_if_exists "$HOME/.prompt"               # Bash prompt
 
-# EOF =========================================================================
 if type brew &>/dev/null && [ -f $(brew --prefix)/etc/bash_completion ]; then
  source $(brew --prefix)/etc/bash_completion
 fi
-
-source_if_exists /usr/local/share/chruby/chruby.sh
-source_if_exists /usr/local/share/chruby/auto.sh
-
-source_if_exists "$HOME/.travis/travis.sh"
